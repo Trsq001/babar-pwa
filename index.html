@@ -102,6 +102,34 @@ section.blk { padding-block: 44px; }
 
 /* hero */
 .hero { border-bottom: 1px solid var(--line); }
+.hero { position: relative; overflow: hidden; }
+.hero .bg { position: absolute; inset: 0; z-index: 0; }
+.hero .bg img { width: 100%; height: 100%; object-fit: cover; opacity: .38; }
+.hero .bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--ink) 35%, transparent), var(--ink) 92%); }
+.hero .wrap { position: relative; z-index: 1; }
+.openchip { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); background: color-mix(in srgb, var(--ink) 70%, transparent); }
+.openchip i { width: 8px; height: 8px; border-radius: 50%; background: var(--bad); }
+.openchip.on i { background: var(--ok); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 25%, transparent); }
+.gal { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 820px) { .gal { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.gal figure { margin: 0; aspect-ratio: 4/5; border-radius: 14px; border: 1px solid var(--line); }
+.gal figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 12px 10px; font-size: 13px; font-weight: 600; background: linear-gradient(transparent, color-mix(in srgb, var(--ink) 88%, transparent)); }
+.how { counter-reset: st; list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 14px; }
+@media (min-width: 720px) { .how { grid-template-columns: repeat(3, 1fr); } }
+.how li { counter-increment: st; padding: 20px; }
+.how li::before { content: counter(st); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--amber); color: var(--amber-ink); font-family: var(--display); font-weight: 900; margin-bottom: 12px; }
+.how h3 { font-size: 18px; margin-bottom: 4px; }
+.faq details { border-bottom: 1px solid var(--line); padding: 14px 0; }
+.faq summary { cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+.faq summary::after { content: "+"; color: var(--amber); font-size: 20px; line-height: 1; }
+.faq details[open] summary::after { content: "–"; }
+.faq p { margin: 8px 0 0; color: var(--muted); }
+.map { width: 100%; aspect-ratio: 16/9; max-width: 100%; border: 0; border-radius: var(--r); filter: grayscale(.4) invert(.9) hue-rotate(180deg); }
+.callfab { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(76px + env(safe-area-inset-bottom, 0px)); z-index: 41; width: 54px; height: 54px; border-radius: 50%; background: var(--amber); color: var(--amber-ink); display: grid; place-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.45); }
+@media (min-width: 820px) { .callfab { display: none; } }
+.pin { display: flex; gap: 8px; justify-content: center; }
+.pin input { width: 52px; height: 60px; text-align: center; font-size: 26px; font-family: var(--display); font-weight: 800; border-radius: 14px; background: var(--raised); border: 1px solid var(--line); }
+.pin input:focus { outline: none; border-color: var(--amber); }
 .hero .wrap { display: grid; gap: 32px; padding-block: 44px 52px; }
 @media (min-width: 820px) { .hero .wrap { grid-template-columns: 1.25fr 1fr; align-items: end; padding-block: 72px 76px; } }
 .hero h1 { font-size: clamp(44px, 11vw, 92px); font-weight: 900; line-height: .92; font-stretch: 78%; text-transform: uppercase; margin-top: 14px; }
@@ -115,6 +143,11 @@ section.blk { padding-block: 44px; }
 
 /* services */
 .svc { display: flex; flex-direction: column; overflow: hidden; }
+.svc .ph img, .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.photo { position: relative; overflow: hidden; background: var(--raised); }
+.tag { position: absolute; right: 10px; bottom: 10px; background: color-mix(in srgb, var(--ink) 82%, transparent); color: var(--muted); font-size: 11px; padding: 2px 8px; border-radius: 999px; }
+.svc .ph .cat, .svc .ph .drop, .svc .ph .pop { position: relative; z-index: 1; }
+.svc .ph.has-img .cat, .svc .ph.has-img .drop { display: none; }
 .svc .ph { aspect-ratio: 16/9; max-width: 100%; background: var(--raised); display: flex; align-items: flex-end; justify-content: space-between; padding: 16px 18px; border-bottom: 1px solid var(--line); position: relative; }
 .svc .ph span.cat { font-family: var(--display); font-weight: 700; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
 .svc .ph .drop { width: 46px; height: 46px; color: var(--line); }
@@ -210,19 +243,27 @@ footer.foot .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-cont
    Used to fill an empty local demo. All values are examples to be confirmed
    with the owner; the banner says so while demo mode is on. */
 const DEFAULT_CONFIG = {
-  business: { name: 'Babar Handcarwash', tagline: 'Jouw wagen, onze zorg.', address: '', postal: '', city: '', phone: '', whatsapp: '', email: '', instagram: '', demo: true },
+  business: { name: 'Babar Handcarwash', tagline: 'Jouw wagen, onze zorg.', address: 'Gelukstede 31', postal: '9700', city: 'Oudenaarde', phone: '+32 466 07 88 16', whatsapp: '', email: '', instagram: '', demo: true },
   vehicles: [ { id: 'car', name: 'Personenwagen', active: true }, { id: 'suv', name: 'SUV', active: true }, { id: 'van', name: 'Bestelwagen', active: true } ],
   services: [
-    { id: 's1', name: 'Buitenwas', category: 'Buitenwas', popular: true, active: true, description: 'Volledige handwas van de carrosserie met pH-neutrale shampoo, velgen en banden gereinigd, met de hand drooggemaakt.', prices: { car: [2500, 30], suv: [3000, 40], van: [3500, 50] } },
-    { id: 's2', name: 'Binnenreiniging', category: 'Binnenreiniging', popular: false, active: true, description: 'Stofzuigen van zetels, vloer en koffer, dashboard en deurpanelen afgenomen, ruiten binnenkant gereinigd.', prices: { car: [3000, 45], suv: [3500, 50], van: [4000, 60] } },
-    { id: 's3', name: 'Binnen + buiten', category: 'Binnen + buiten', popular: true, active: true, description: 'De complete beurt: handwas buiten en grondige reiniging binnen in één afspraak.', prices: { car: [5000, 75], suv: [6000, 90], van: [7000, 105] } },
-    { id: 's4', name: 'Dieptereiniging', category: 'Dieptereiniging', popular: true, active: true, description: 'Shampooneren van zetels en tapijten, vlekken behandelen en kunststof verzorgen. Ideaal bij verkoop of na de winter.', prices: { car: [12000, 180], suv: [14000, 210], van: [16000, 240] } },
-    { id: 's5', name: 'Velgen & banden', category: 'Extra diensten', popular: false, active: true, description: 'Extra grondige reiniging van velgen met velgenreiniger en bandenzwart.', prices: { car: [1500, 20], suv: [1800, 20], van: [1800, 20] } },
-    { id: 's6', name: 'Wax-behandeling', category: 'Extra diensten', popular: false, active: true, description: 'Beschermende waxlaag met de hand aangebracht voor extra glans en waterafstoting.', prices: { car: [2500, 30], suv: [3000, 40] } }
+    { id: 's1', image: 'https://images.unsplash.com/photo-1633014041037-f5446fb4ce99?auto=format&fit=crop&w=1200&q=70', name: 'Buitenwas', category: 'Buitenwas', popular: true, active: true, description: 'Volledige handwas van de carrosserie met pH-neutrale shampoo, velgen en banden gereinigd, met de hand drooggemaakt.', prices: { car: [2500, 30], suv: [3000, 40], van: [3500, 50] } },
+    { id: 's2', image: 'https://images.unsplash.com/photo-1619719287848-883c8f26efbc?auto=format&fit=crop&w=1200&q=70', name: 'Binnenreiniging', category: 'Binnenreiniging', popular: false, active: true, description: 'Stofzuigen van zetels, vloer en koffer, dashboard en deurpanelen afgenomen, ruiten binnenkant gereinigd.', prices: { car: [3000, 45], suv: [3500, 50], van: [4000, 60] } },
+    { id: 's3', image: 'https://images.unsplash.com/photo-1732357624591-f2137085659b?auto=format&fit=crop&w=1200&q=70', name: 'Binnen + buiten', category: 'Binnen + buiten', popular: true, active: true, description: 'De complete beurt: handwas buiten en grondige reiniging binnen in één afspraak.', prices: { car: [5000, 75], suv: [6000, 90], van: [7000, 105] } },
+    { id: 's4', image: 'https://images.unsplash.com/photo-1652454449601-e83b62eabe94?auto=format&fit=crop&w=1200&q=70', name: 'Dieptereiniging', category: 'Dieptereiniging', popular: true, active: true, description: 'Shampooneren van zetels en tapijten, vlekken behandelen en kunststof verzorgen. Ideaal bij verkoop of na de winter.', prices: { car: [12000, 180], suv: [14000, 210], van: [16000, 240] } },
+    { id: 's5', image: 'https://images.unsplash.com/photo-1565689876697-e467b6c54da2?auto=format&fit=crop&w=1200&q=70', name: 'Velgen & banden', category: 'Extra diensten', popular: false, active: true, description: 'Extra grondige reiniging van velgen met velgenreiniger en bandenzwart.', prices: { car: [1500, 20], suv: [1800, 20], van: [1800, 20] } },
+    { id: 's6', image: 'https://images.unsplash.com/photo-1575844611398-2a68400b437c?auto=format&fit=crop&w=1200&q=70', name: 'Wax-behandeling', category: 'Extra diensten', popular: false, active: true, description: 'Beschermende waxlaag met de hand aangebracht voor extra glans en waterafstoting.', prices: { car: [2500, 30], suv: [3000, 40] } }
   ],
   hours: { 1: [true, '09:00', '18:00'], 2: [true, '09:00', '18:00'], 3: [true, '09:00', '18:00'], 4: [true, '09:00', '18:00'], 5: [true, '09:00', '18:00'], 6: [true, '09:00', '17:00'], 7: [false, '09:00', '17:00'] },
   rules: { slot: 30, buffer: 10, capacity: 2, lead: 60, maxDays: 30 },
   blocks: [],
+  hero: 'https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=1200&q=70',
+  gallery: [
+    { id: 'g1', url: 'https://images.unsplash.com/photo-1761312834165-c27d037b3a6b?auto=format&fit=crop&w=1200&q=70', caption: 'Schuimbehandeling', stock: true },
+    { id: 'g2', url: 'https://images.unsplash.com/photo-1608506375591-b90e1f955e4b?auto=format&fit=crop&w=1200&q=70', caption: 'Voorwassen met actief schuim', stock: true },
+    { id: 'g3', url: 'https://images.unsplash.com/photo-1761312834150-4beefff097a7?auto=format&fit=crop&w=1200&q=70', caption: 'Handwas', stock: true },
+    { id: 'g4', url: 'https://images.unsplash.com/photo-1769641156615-5d561513b3fa?auto=format&fit=crop&w=1200&q=70', caption: 'Met de hand drogen en afwerken', stock: true }
+  ],
+  adminPin: '1234',
   promos: [ { id: 'p1', title: 'Winterklaar', description: 'Binnen + buiten met gratis velgenreiniging. Voorbeeldactie voor de demo.', label: 'Velgen gratis', code: 'WINTER', from: '', until: '', active: true, home: true } ]
 };
 
@@ -300,9 +341,9 @@ function freeTimes(cfg, slots, date, minutes) {
 }
 
 /* ------------------------------------------------------------ storage: shared database, or this browser only */
-const LS_KEY = 'babar-demo-v1';
+const LS_KEY = 'babar-demo-v2'; // v2: real address/phone and photos
 const lsRead = () => { try { return JSON.parse(localStorage.getItem(LS_KEY) || 'null'); } catch { return null; } };
-const lsWrite = (v) => { try { localStorage.setItem(LS_KEY, JSON.stringify(v)); } catch {} };
+const lsWrite = (v) => { try { localStorage.setItem(LS_KEY, JSON.stringify(v)); return true; } catch { return false; } };
 
 const S = {
   mode: 'loading', db: null, me: null, admin: false, cfg: null, cfgMissing: false,
@@ -317,12 +358,13 @@ function localState() {
   v.slots = v.slots || []; v.pii = v.pii || {}; v.mine = v.mine || [];
   return v;
 }
-function saveLocal() { lsWrite({ cfg: S.cfg, slots: S.slots, pii: S.pii, mine: S.mine }); }
+function saveLocal() { return lsWrite({ cfg: S.cfg, slots: S.slots, pii: S.pii, mine: S.mine }); }
 
 const Store = {
   async saveConfig(cfg) {
     S.cfg = cfg;
-    if (S.mode === 'remote') await S.db.doc('config/main').set(cfg); else saveLocal();
+    if (S.mode === 'remote') await S.db.doc('config/main').set(cfg);
+    else if (!saveLocal()) throw new Error('Geen opslagruimte meer in deze browser. Verwijder een foto of gebruik een link.');
   },
   async createBooking(b, pii) {
     if (S.mode === 'remote') {
@@ -404,13 +446,14 @@ const IC = {
   spark: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.3 6.3l2.5 2.5M15.2 15.2l2.5 2.5M6.3 17.7l2.5-2.5M15.2 8.8l2.5-2.5"/>',
   car: '<path d="M4 16.5V12l2-5h12l2 5v4.5"/><path d="M3 12h18v4.5H3z"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/>',
   route: '<circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/>',
+  phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/>',
   tag: '<path d="M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l8 8a1.5 1.5 0 0 1 0 2.1l-7 7a1.5 1.5 0 0 1-2.1 0l-8-8Z"/><circle cx="8" cy="8" r="1.5"/>'
 };
 const icon = (n, cls = 'i') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
 
 /* ------------------------------------------------------------ routing */
-const ROUTES = ['home', 'diensten', 'boeken', 'contact', 'acties', 'mijn', 'beheer', 'privacy'];
-function readRoute() { const h = location.hash.slice(1); S.route = ROUTES.includes(h) ? h : 'home'; }
+const ROUTES = ['admin', 'home', 'diensten', 'boeken', 'contact', 'acties', 'mijn', 'beheer', 'privacy'];
+function readRoute() { const h = location.hash.slice(1); S.route = h === 'admin' ? 'beheer' : ROUTES.includes(h) ? h : 'home'; }
 function go(r) { if (location.hash.slice(1) === r) { readRoute(); render(); } else location.hash = r; window.scrollTo({ top: 0 }); }
 window.addEventListener('hashchange', () => { readRoute(); if (S.route === 'boeken' && !S.wiz) startWizard(); render(); window.scrollTo({ top: 0 }); });
 
@@ -427,10 +470,20 @@ const waUrl = (num, text) => { if (!num) return ''; let d = num.replace(/\D/g, '
 function toast(msg) { S.toast = msg; render(); clearTimeout(toast.t); toast.t = setTimeout(() => { S.toast = null; render(); }, 2600); }
 
 /* ------------------------------------------------------------ views: public */
+// broken or offline images fall back to the plain panel instead of an empty frame
+window.__imgFail = (el) => { const p = el.closest('.ph'); if (p) p.classList.remove('has-img'); const t = el.nextElementSibling; if (t && t.classList.contains('tag')) t.remove(); el.remove(); };
+const photo = (url, alt, stock) => url ? `<img src="${esc(url)}" alt="${esc(alt)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="__imgFail(this)">${stock ? '<span class="tag">Voorbeeldfoto</span>' : ''}` : '';
+const telHref = (n) => 'tel:' + String(n || '').replace(/[^\d+]/g, '');
+function openState() {
+  const now = new Date(); const d = ymd(now); const h = cfg().hours[isoDow(d)]; const m = minOf(hm(now));
+  if (h && h[0] && m >= minOf(h[1]) && m < minOf(h[2])) return { on: true, text: 'Nu open · tot ' + h[2] };
+  for (let i = 0; i < 8; i++) { const x = addDays(d, i); const hh = cfg().hours[isoDow(x)]; if (hh && hh[0] && (i > 0 || m < minOf(hh[1]))) return { on: false, text: 'Gesloten · opent ' + (i === 0 ? 'vandaag' : i === 1 ? 'morgen' : WEEKDAYS[isoDow(x) - 1].toLowerCase()) + ' om ' + hh[1] }; }
+  return { on: false, text: 'Gesloten' };
+}
 function svcCard(s) {
   const rows = vehicles().filter((v) => s.prices[v.id]).map((v) => `<div><span class="muted">${esc(v.name)}</span><span class="row" style="gap:10px"><span class="muted small row" style="gap:4px">${icon('clock', 'i')} ${dur(s.prices[v.id][1])}</span><b class="num">${euro(s.prices[v.id][0])}</b></span></div>`).join('');
   return `<article class="card svc">
-    <div class="ph">${s.popular ? '<span class="pop">Populair</span>' : ''}<span class="cat">${esc(s.category)}</span>${icon('drop', 'i drop')}</div>
+    <div class="ph ${s.image ? 'has-img' : ''}">${photo(s.image, s.name, true)}${s.popular ? '<span class="pop">Populair</span>' : ''}<span class="cat">${esc(s.category)}</span>${icon('drop', 'i drop')}</div>
     <div class="bd"><div><h3>${esc(s.name)}</h3><p>${esc(s.description)}</p></div>
       <div class="prices">${rows}</div>
       <button class="btn primary" data-act="book" data-id="${s.id}">Boek nu ${icon('right')}</button></div></article>`;
@@ -452,7 +505,7 @@ function contactBlock() {
     <div class="row" style="align-items:flex-start;flex-wrap:nowrap">${icon('pin')}<span>${addr() ? esc(addr()) : '<span class="muted">Adres volgt binnenkort.</span>'}</span></div>
     ${b.phone ? `<div class="row small"><span class="muted">Telefoon</span><b class="num" style="user-select:all">${esc(b.phone)}</b></div>` : ''}
     ${b.email ? `<div class="row small"><span class="muted">E-mail</span><b style="user-select:all">${esc(b.email)}</b></div>` : ''}
-    <div class="row">${r ? `<a class="btn primary" href="${r}" target="_blank" rel="noopener">${icon('route')} Route plannen</a>` : ''}${w ? `<a class="btn" href="${w}" target="_blank" rel="noopener">WhatsApp</a>` : ''}${b.instagram ? `<a class="btn" href="${esc(b.instagram)}" target="_blank" rel="noopener">Instagram</a>` : ''}</div>
+    <div class="row">${b.phone ? `<a class="btn primary" href="${telHref(b.phone)}">${icon('phone')} Bel ons</a>` : ''}${r ? `<a class="btn" href="${r}" target="_blank" rel="noopener">${icon('route')} Route plannen</a>` : ''}${w ? `<a class="btn" href="${w}" target="_blank" rel="noopener">WhatsApp</a>` : ''}${b.instagram ? `<a class="btn" href="${esc(b.instagram)}" target="_blank" rel="noopener">Instagram</a>` : ''}</div>
     ${!r && !b.phone && !b.email ? '<p class="small muted" style="margin:0">Adres en telefoon volgen zodra de eigenaar ze bevestigt. Boeken kan nu al online.</p>' : ''}
   </div>`;
 }
@@ -460,8 +513,9 @@ function viewHome() {
   const sv = services(); const pop = (sv.filter((s) => s.popular).length ? sv.filter((s) => s.popular) : sv).slice(0, 3);
   const low = sv.length ? Math.min(...sv.map(fromPrice)) : null; const promos = promosLive().filter((p) => p.home);
   const nextOpen = (() => { for (let i = 0; i < 8; i++) { const d = addDays(ymd(), i); const h = cfg().hours[isoDow(d)]; if (h && h[0] && (i > 0 || minOf(hm(new Date())) < minOf(h[2]))) return (i === 0 ? 'Vandaag' : i === 1 ? 'Morgen' : WEEKDAYS[isoDow(d) - 1]) + ' ' + h[1] + '–' + h[2]; } return '—'; })();
-  return `<section class="hero"><div class="wrap">
-      <div class="rise"><p class="eyebrow">${esc(cfg().business.name)} · handwas</p>
+  const os = openState(); const gal = (cfg().gallery || []).filter((g) => g.url);
+  return `<section class="hero">${cfg().hero ? `<div class="bg" aria-hidden="true"><img src="${esc(cfg().hero)}" alt="" referrerpolicy="no-referrer" onerror="this.remove()"></div>` : ''}<div class="wrap">
+      <div class="rise"><span class="openchip ${os.on ? 'on' : ''}"><i></i>${esc(os.text)}</span><p class="eyebrow" style="margin-top:18px">${esc(cfg().business.name)} · ${esc(cfg().business.city || 'handwas')}</p>
         <h1>${esc(cfg().business.tagline).replace(/,\s*/, ',<br><em>')}</em></h1>
         <p class="lead">Handwas en interieurreiniging voor personenwagens, SUV's en bestelwagens. Kies je dienst en vraag in een minuut een tijdstip aan.</p>
         <div class="row" style="margin-top:28px"><button class="btn primary lg" data-go="boeken">Boek je wasbeurt ${icon('right')}</button><button class="btn lg" data-go="diensten">Bekijk diensten</button></div></div>
@@ -471,10 +525,19 @@ function viewHome() {
     ${pop.length ? `<section class="blk"><div class="wrap"><div class="row" style="justify-content:space-between;align-items:flex-end;margin-bottom:22px"><div><p class="eyebrow">Populair</p><h2 style="font-size:38px;margin-top:6px">Onze diensten</h2></div><button class="btn sm" data-go="diensten">Alle diensten ${icon('right')}</button></div>
       <div class="grid g3">${pop.map(svcCard).join('')}</div></div></section>` : ''}
     ${promos.length ? `<section class="blk" style="padding-top:0"><div class="wrap"><p class="eyebrow">Acties</p><h2 style="font-size:38px;margin:6px 0 22px">Nu lopend</h2><div class="grid g2">${promos.map(promoCard).join('')}</div></div></section>` : ''}
+    <section class="blk" style="padding-top:0"><div class="wrap"><p class="eyebrow">Zo werkt het</p><h2 style="font-size:38px;margin-top:6px">In drie stappen geboekt</h2>
+      <ol class="how"><li class="card"><h3>Kies je dienst</h3><p class="muted" style="margin:0">Type wagen en wasbeurt. Je ziet meteen prijs en duur.</p></li><li class="card"><h3>Kies dag en uur</h3><p class="muted" style="margin:0">Alleen vrije tijdstippen worden getoond, rekening houdend met de duur.</p></li><li class="card"><h3>Wij bevestigen</h3><p class="muted" style="margin:0">Je krijgt een aanvraagnummer. Wij bevestigen telefonisch of via WhatsApp.</p></li></ol></div></section>
+    ${gal.length ? `<section class="blk" style="padding-top:0"><div class="wrap"><p class="eyebrow">Galerij</p><h2 style="font-size:38px;margin:6px 0 22px">Resultaat</h2><div class="gal">${gal.map((g) => `<figure class="photo">${photo(g.url, g.caption, g.stock)}${g.caption ? `<figcaption>${esc(g.caption)}</figcaption>` : ''}</figure>`).join('')}</div></div></section>` : ''}
     <section class="blk" style="background:var(--panel);border-block:1px solid var(--line)"><div class="wrap"><p class="eyebrow">Waarom handwas</p><h2 style="font-size:38px;margin-top:6px;max-width:16em">Aandacht die een wasstraat niet geeft</h2>
       <ul class="benefits">${[['hand', 'Echt met de hand', 'Geen borstels die krassen achterlaten. Elke wagen wordt met zachte washandschoenen gewassen.'], ['shield', 'Zacht voor je lak', 'pH-neutrale producten en de twee-emmermethode beschermen lak en coating.'], ['spark', 'Oog voor detail', "Velgen, deurstijlen en ruiten: de plekken die een machine overslaat."], ['car', 'Binnen én buiten', 'Van een snelle buitenwas tot een volledige dieptereiniging.']].map(([i, t, d]) => `<li><span style="color:var(--amber)">${icon(i, 'i')}</span><h3>${t}</h3><p>${d}</p></li>`).join('')}</ul></div></section>
     <section class="blk"><div class="wrap grid g2"><div class="card pad"><p class="eyebrow">Langskomen</p><h2 style="font-size:28px;margin:6px 0 16px">Adres &amp; contact</h2>${contactBlock()}</div>
-      <div class="card pad"><p class="eyebrow">Openingsuren</p><h2 style="font-size:28px;margin:6px 0 8px">Wanneer open</h2>${hoursList()}</div></div></section>`;
+      <div class="card pad"><p class="eyebrow">Openingsuren</p><h2 style="font-size:28px;margin:6px 0 8px">Wanneer open</h2>${hoursList()}</div></div></section>
+    <section class="blk" style="padding-top:0"><div class="wrap" style="max-width:760px"><p class="eyebrow">Vragen</p><h2 style="font-size:32px;margin:6px 0 10px">Goed om te weten</h2><div class="faq">
+      <details><summary>Moet ik online betalen?</summary><p>Nee. Je betaalt ter plaatse na de wasbeurt.</p></details>
+      <details><summary>Is mijn afspraak meteen vast?</summary><p>Je online aanvraag houdt het tijdstip voor je vast. Wij bevestigen ze zo snel mogelijk; de status zie je bij "Mijn aanvragen".</p></details>
+      <details><summary>Hoe lang duurt een wasbeurt?</summary><p>Dat hangt af van de dienst en je type wagen. De duur staat bij elke dienst; bij sterk vervuilde wagens kan het iets langer duren.</p></details>
+      <details><summary>Kan ik mijn afspraak wijzigen of annuleren?</summary><p>${cfg().business.phone ? 'Bel of stuur een bericht naar ' + esc(cfg().business.phone) + ' met je aanvraagnummer.' : 'Neem contact met ons op met je aanvraagnummer.'}</p></details>
+    </div></div></section>`;
 }
 function viewDiensten() {
   const sv = services(); const cats = [...CATS.filter((c) => sv.some((s) => s.category === c)), ...[...new Set(sv.map((s) => s.category))].filter((c) => !CATS.includes(c))];
@@ -490,6 +553,7 @@ function viewActies() {
 function viewContact() {
   return `<div class="wrap rise" style="padding-block:36px"><p class="eyebrow">${esc(cfg().business.name)}</p><h1 style="font-size:48px;margin:6px 0 24px">Contact</h1>
     <div class="grid g2"><div class="card pad"><h2 style="font-size:22px;margin-bottom:16px">Adres &amp; bereikbaarheid</h2>${contactBlock()}</div><div class="card pad"><h2 style="font-size:22px;margin-bottom:8px">Openingsuren</h2>${hoursList()}</div></div>
+    ${addr() ? `<iframe class="map" style="margin-top:16px" title="Kaart: ${esc(addr())}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=${encodeURIComponent(addr() + ', België')}&z=15&output=embed"></iframe>` : ''}
     <button class="btn primary lg" style="margin-top:24px" data-go="boeken">Boek je wasbeurt ${icon('right')}</button></div>`;
 }
 function viewPrivacy() {
@@ -597,7 +661,11 @@ function viewMijn() {
 }
 
 /* ------------------------------------------------------------ admin */
+function adminUnlocked() { try { return sessionStorage.getItem('babar-admin') === '1'; } catch { return !!S.unlocked; } }
 function viewBeheer() {
+  if (S.mode === 'local' && !adminUnlocked()) return `<div class="wrap rise" style="padding-block:56px;max-width:420px;text-align:center"><div class="mark" style="margin:0 auto;width:48px;height:48px;font-size:26px">B</div><h1 style="font-size:32px;margin:18px 0 6px">Beheer</h1><p class="muted" style="margin:0 0 22px">Voer de pincode in.</p>
+    <form id="a-pin"><div class="pin">${[0, 1, 2, 3].map((i) => `<input id="pin-${i}" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Cijfer ${i + 1}">`).join('')}</div>${S.pinErr ? '<p class="notice err" style="margin-top:16px">Onjuiste pincode.</p>' : ''}<button class="btn primary" style="margin-top:20px;width:100%">Openen</button></form>
+    <p class="small muted" style="margin-top:18px">Demo-pincode: 1234 · wijzig ze bij Instellingen.</p></div>`;
   if (!S.admin) return `<div class="wrap" style="padding-block:48px;max-width:560px"><h1 style="font-size:36px">Beheer</h1><p class="muted">Alleen de eigenaar en editors van deze app kunnen aanvragen en instellingen beheren.</p></div>`;
   const tabs = [['overzicht', 'Overzicht'], ['aanvragen', 'Aanvragen'], ['diensten', 'Diensten & prijzen'], ['planning', 'Planning'], ['acties', 'Acties'], ['instellingen', 'Instellingen']];
   const newCount = S.slots.filter((s) => s.status === 'nieuw').length;
@@ -667,6 +735,7 @@ function adminServices() {
   <form id="a-services" class="stack" style="gap:14px">${c.services.map((s, i) => `<fieldset class="card pad" style="margin:0"><legend class="sr" style="position:absolute;left:-9999px">${esc(s.name)}</legend>
     <div class="grid g2"><div><label class="lbl" for="sv-name-${i}">Naam</label><input class="field" id="sv-name-${i}" data-sv="${i}" data-k="name" value="${esc(s.name)}" required></div>
     <div><label class="lbl" for="sv-cat-${i}">Categorie</label><select class="field" id="sv-cat-${i}" data-sv="${i}" data-k="category">${[...new Set([...CATS, s.category])].map((x) => `<option ${x === s.category ? 'selected' : ''}>${esc(x)}</option>`).join('')}</select></div></div>
+    <div class="grid g2" style="margin-top:12px;align-items:end"><div><label class="lbl" for="sv-img-${i}">Foto (link)</label><input class="field" id="sv-img-${i}" type="url" value="${esc(s.image && !s.image.startsWith('data:') ? s.image : '')}" placeholder="${s.image && s.image.startsWith('data:') ? 'Eigen foto geüpload' : 'https://'}"></div><div><label class="lbl" for="sv-file-${i}">of eigen foto uploaden</label><input class="field" style="padding-top:11px" type="file" id="sv-file-${i}" accept="image/*"></div></div>
     <div style="margin-top:12px"><label class="lbl" for="sv-desc-${i}">Beschrijving</label><textarea class="field" id="sv-desc-${i}" data-sv="${i}" data-k="description" rows="2">${esc(s.description)}</textarea></div>
     <div class="tbl-wrap" style="margin-top:12px"><table class="tbl"><thead><tr><th>Type wagen</th><th>Prijs (€)</th><th>Duur (min)</th></tr></thead><tbody>${c.vehicles.map((v) => `<tr><td>${esc(v.name)}</td><td><input class="field num" id="sv-p-${i}-${v.id}" data-sv="${i}" data-price="${v.id}" inputmode="decimal" value="${s.prices[v.id] ? String(s.prices[v.id][0] / 100).replace('.', ',') : ''}"></td><td><input class="field num" id="sv-d-${i}-${v.id}" data-sv="${i}" data-dur="${v.id}" type="number" min="5" max="600" step="5" value="${s.prices[v.id] ? s.prices[v.id][1] : ''}"></td></tr>`).join('')}</tbody></table></div>
     <div class="row" style="margin-top:12px;gap:20px"><label class="switch"><input type="checkbox" id="sv-act-${i}" data-sv="${i}" data-k="active" ${s.active ? 'checked' : ''}> Zichtbaar en boekbaar</label><label class="switch"><input type="checkbox" id="sv-pop-${i}" data-sv="${i}" data-k="popular" ${s.popular ? 'checked' : ''}> Populair (homepagina)</label></div></fieldset>`).join('')}
@@ -697,8 +766,13 @@ function adminSettings() {
   const b = cfg().business;
   const f = (k, l, t = 'text', ph = '') => `<div><label class="lbl" for="st-${k}">${l}</label><input class="field" id="st-${k}" type="${t}" placeholder="${ph}" value="${esc(b[k])}"></div>`;
   return `<form class="card pad" id="a-settings"><div class="grid g2">${f('name', 'Bedrijfsnaam')}${f('tagline', 'Slogan (homepagina)')}${f('address', 'Straat en nummer')}<div class="grid" style="grid-template-columns:100px 1fr;gap:10px">${f('postal', 'Postcode')}${f('city', 'Gemeente')}</div>${f('phone', 'Telefoon', 'tel', '09 123 45 67')}${f('whatsapp', 'WhatsApp', 'tel', '0470 12 34 56')}${f('email', 'E-mail', 'email')}${f('instagram', 'Instagram (https://…)', 'url')}</div>
+    <div class="grid g2" style="margin-top:16px"><div><label class="lbl" for="st-pin">Pincode beheer (4 cijfers)</label><input class="field num" id="st-pin" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" value="${esc(cfg().adminPin || '1234')}"></div>
+      <div><label class="lbl" for="st-hero">Grote foto bovenaan (link)</label><input class="field" id="st-hero" type="url" value="${esc(cfg().hero || '')}"></div></div>
     <label class="switch" style="margin-top:18px"><input type="checkbox" id="st-demo" ${b.demo ? 'checked' : ''}> Demomodus (banner "Demoversie" bovenaan)</label>
     <div class="row" style="margin-top:18px"><button class="btn primary">Instellingen opslaan</button></div></form>
+    <div class="card pad" style="margin-top:16px"><h3 style="font-size:18px;margin-bottom:4px">Galerij</h3><p class="small muted" style="margin:0 0 14px">Eigen foto uploaden of een link plakken. Duid stockfoto's aan: ze krijgen het label "Voorbeeldfoto".</p>
+      <div class="gal">${(cfg().gallery || []).map((g) => `<figure class="photo">${photo(g.url, g.caption, g.stock)}<figcaption class="row" style="justify-content:space-between"><span class="ell">${esc(g.caption || '')}</span><button type="button" class="chip" style="background:var(--ink);cursor:pointer" data-act="a-delgal" data-id="${g.id}">Verwijder</button></figcaption></figure>`).join('')}</div>
+      <form id="a-gal" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr));align-items:end;margin-top:14px"><div><label class="lbl" for="gal-file">Foto uploaden</label><input class="field" style="padding-top:11px" type="file" id="gal-file" accept="image/*"></div><div><label class="lbl" for="gal-url">of link</label><input class="field" type="url" id="gal-url" placeholder="https://"></div><div><label class="lbl" for="gal-cap">Onderschrift</label><input class="field" id="gal-cap" maxlength="60"></div><label class="switch"><input type="checkbox" id="gal-stock" checked> Stockfoto</label><button class="btn primary">Toevoegen</button></form></div>
     ${S.mode === 'local' ? `<div class="card pad" style="margin-top:16px"><h3 style="font-size:18px;margin-bottom:6px">Lokale demo</h3><p class="small muted" style="margin:0 0 12px">Alles wat je hier doet, wordt alleen in deze browser bewaard.</p>${S.confirming?.reset ? `<span class="confirm-box"><span class="small">Alles wissen?</span><button class="btn sm danger" data-act="a-reset" data-sure="1">Ja, wissen</button><button class="btn sm" data-act="a-nostatus">Nee</button></span>` : `<button class="btn sm danger" data-act="a-reset">Demo opnieuw beginnen</button>`}</div>` : ''}`;
 }
 
@@ -713,7 +787,7 @@ function render() {
   const tabs = [['home', 'Home', 'home'], ['diensten', 'Diensten', 'drop'], ['boeken', 'Boeken', 'cal'], ['contact', 'Contact', 'pin']];
   app.innerHTML = `
     ${b.demo ? `<div class="banner"><div class="wrap"><span>Demoversie · concept door FastCode</span><span>prijzen, uren en acties zijn voorbeelden</span></div></div>` : ''}
-    ${S.mode === 'local' ? `<div style="background:var(--raised);border-bottom:1px solid var(--line)"><div class="wrap small muted" style="padding-block:6px;text-align:center">Lokale modus: aanvragen worden alleen in deze browser bewaard.</div></div>` : ''}
+    ${S.mode === 'local' && (r === 'beheer' || r === 'mijn') ? `<div style="background:var(--raised);border-bottom:1px solid var(--line)"><div class="wrap small muted" style="padding-block:6px;text-align:center">Lokale modus: aanvragen worden alleen in deze browser bewaard.</div></div>` : ''}
     ${S.stale ? `<div style="background:var(--raised)"><div class="wrap small" style="padding-block:6px;text-align:center">De database antwoordt nog niet; gegevens kunnen verouderd zijn.</div></div>` : ''}
     <header class="top"><div class="wrap"><a class="brand" href="#home"><span class="mark">B</span><b>${esc(b.name)}</b></a>
       <nav class="desk" aria-label="Hoofdmenu"><a href="#diensten" ${r === 'diensten' ? 'aria-current="page"' : ''}>Diensten</a><a href="#acties" ${r === 'acties' ? 'aria-current="page"' : ''}>Acties</a><a href="#contact" ${r === 'contact' ? 'aria-current="page"' : ''}>Contact</a>${S.mine.length ? `<a href="#mijn" ${r === 'mijn' ? 'aria-current="page"' : ''}>Mijn aanvragen</a>` : ''}${S.admin && S.mode === 'remote' ? `<a href="#beheer" ${r === 'beheer' ? 'aria-current="page"' : ''}>Beheer</a>` : ''}<a class="btn primary sm" href="#boeken">Boek je wasbeurt</a></nav>
@@ -721,6 +795,7 @@ function render() {
     <main>${view}</main>
     ${r !== 'boeken' ? `<footer class="foot"><div class="wrap"><span>© ${new Date().getFullYear()} ${esc(b.name)}${b.demo ? ' · demo-concept, geen officieel product' : ''}</span><span class="row" style="gap:18px"><a href="#acties">Acties</a><a href="#privacy">Privacybeleid</a><a href="#beheer">Beheer</a></span></div></footer>
     <nav class="tabs" aria-label="Hoofdmenu"><ul>${tabs.map(([k, l, i]) => `<li><a href="#${k}" ${r === k ? 'aria-current="page"' : ''}>${icon(i, '')}${l}</a></li>`).join('')}</ul></nav>` : ''}
+    ${b.phone && r !== 'boeken' && r !== 'beheer' ? `<a class="callfab" href="${telHref(b.phone)}" aria-label="Bel ${esc(b.phone)}">${icon('phone')}</a>` : ''}
     ${S.toast ? `<div class="toast" role="status">${esc(S.toast)}</div>` : ''}`;
   document.querySelectorAll('[data-mobile]').forEach((el) => { el.style.display = matchMedia('(min-width: 820px)').matches ? 'none' : 'flex'; });
   if (fid) { const el = document.getElementById(fid); if (el && el !== document.activeElement) { el.focus({ preventScroll: true }); if (sel && el.setSelectionRange) try { el.setSelectionRange(sel[0], sel[1]); } catch {} } }
@@ -730,7 +805,7 @@ function render() {
 const val = (id) => (document.getElementById(id)?.value ?? '').trim();
 const chk = (id) => !!document.getElementById(id)?.checked;
 const clone = () => JSON.parse(JSON.stringify(cfg()));
-async function saveCfg(next, msg) { try { await Store.saveConfig(next); toast(msg); } catch (e) { toast('Opslaan mislukt. Probeer opnieuw.'); } }
+async function saveCfg(next, msg) { const prev = S.cfg; try { await Store.saveConfig(next); toast(msg); } catch (e) { S.cfg = prev; toast(e && e.message && e.message.startsWith('Geen') ? e.message : 'Opslaan mislukt. Probeer opnieuw.'); } }
 
 document.addEventListener('click', async (e) => {
   const g = e.target.closest('[data-go]'); if (g) { e.preventDefault(); go(g.dataset.go); return; }
@@ -762,13 +837,26 @@ document.addEventListener('click', async (e) => {
     case 'a-unblock': { const n = clone(); n.blocks = (n.blocks || []).filter((b) => b.id !== id); saveCfg(n, 'Blokkering verwijderd'); break; }
     case 'a-delpromo': { const n = clone(); n.promos.splice(+id, 1); saveCfg(n, 'Actie verwijderd'); break; }
     case 'a-addsvc': { const n = clone(); n.services.push({ id: uid(), name: 'Nieuwe dienst', category: 'Extra diensten', description: '', popular: false, active: false, prices: {} }); saveCfg(n, 'Dienst toegevoegd: vul prijzen in en zet hem zichtbaar'); break; }
+    case 'a-delgal': { const n = clone(); n.gallery = (n.gallery || []).filter((g) => g.id !== id); saveCfg(n, 'Foto verwijderd'); break; }
     case 'a-seed': saveCfg(JSON.parse(JSON.stringify(DEFAULT_CONFIG)), 'Voorbeeldgegevens geladen'); break;
     case 'a-reset': if (!a.dataset.sure) { S.confirming = { reset: true }; render(); break; } S.confirming = null; S.cfg = JSON.parse(JSON.stringify(DEFAULT_CONFIG)); S.slots = []; S.pii = {}; S.mine = []; saveLocal(); toast('Demo opnieuw begonnen'); break;
   }
 });
 
+// uploaded photos are scaled down so they fit in the browser's storage
+function shrink(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader(); r.onerror = rej;
+    r.onload = () => { const im = new Image(); im.onerror = rej; im.onload = () => {
+      const k = Math.min(1, 1200 / Math.max(im.width, im.height)); const c = document.createElement('canvas');
+      c.width = Math.round(im.width * k); c.height = Math.round(im.height * k); c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+      res(c.toDataURL('image/jpeg', 0.78)); }; im.src = r.result; };
+    r.readAsDataURL(file);
+  });
+}
 document.addEventListener('input', (e) => {
   const t = e.target;
+  if (/^pin-\d$/.test(t.id)) { t.value = t.value.replace(/\D/g, '').slice(0, 1); const nx = document.getElementById('pin-' + (+t.id.slice(4) + 1)); if (t.value && nx) nx.focus(); else if (t.value && t.id === 'pin-3') document.getElementById('a-pin').requestSubmit(); return; }
   if (t.dataset.f && S.wiz) { S.wiz.form[t.dataset.f] = t.type === 'checkbox' ? t.checked : t.value; const n = document.getElementById('w-next'); if (n) n.disabled = !wizValid(); }
   if (t.dataset.flt) { S.filter[t.dataset.flt] = t.value; render(); }
 });
@@ -785,8 +873,23 @@ document.addEventListener('submit', async (e) => {
     try { await Store.updateSlot(s.id, { startMs: ms, endMs: ms + s.minutes * 60000, blockMs: ms + (s.minutes + cfg().rules.buffer) * 60000, log: [...(s.log || []), { from: s.status, to: s.status, at: Date.now(), note: 'verplaatst van ' + dt(s.startMs) }] }); toast('Afspraak verplaatst. Laat het de klant weten.'); } catch { toast('Verplaatsen mislukt.'); }
     render(); return;
   }
+  if (id === 'a-pin') {
+    const code = [0, 1, 2, 3].map((i) => val('pin-' + i)).join('');
+    if (code === String(cfg().adminPin || '1234')) { S.pinErr = false; S.unlocked = true; try { sessionStorage.setItem('babar-admin', '1'); } catch {} render(); } else { S.pinErr = true; render(); }
+    return;
+  }
+  if (id === 'a-gal') {
+    const file = document.getElementById('gal-file')?.files?.[0]; let url = val('gal-url');
+    try { if (file) url = await shrink(file); } catch { toast('Deze foto kon niet gelezen worden.'); return; }
+    if (!/^(https:\/\/|data:image\/)/.test(url)) { toast('Kies een foto of plak een https-link.'); return; }
+    const n = clone(); n.gallery = [...(n.gallery || []), { id: uid(), url, caption: val('gal-cap'), stock: chk('gal-stock') }];
+    saveCfg(n, 'Foto toegevoegd'); return;
+  }
   if (id === 'a-services') {
     const n = clone(); let bad = '';
+    for (let i = 0; i < n.services.length; i++) { const f = document.getElementById('sv-file-' + i)?.files?.[0]; const u = val('sv-img-' + i);
+      if (f) { try { n.services[i].image = await shrink(f); } catch { toast('Foto bij "' + n.services[i].name + '" kon niet gelezen worden.'); return; } }
+      else if (u) n.services[i].image = /^https:\/\//.test(u) ? u : n.services[i].image; }
     n.services.forEach((s, i) => {
       s.name = val('sv-name-' + i) || s.name; s.category = val('sv-cat-' + i); s.description = val('sv-desc-' + i); s.active = chk('sv-act-' + i); s.popular = chk('sv-pop-' + i);
       const prices = {};
@@ -819,6 +922,8 @@ document.addEventListener('submit', async (e) => {
   if (id === 'a-settings') {
     const n = clone(); for (const k of ['name', 'tagline', 'address', 'postal', 'city', 'phone', 'whatsapp', 'email']) n.business[k] = val('st-' + k);
     const ig = val('st-instagram'); n.business.instagram = /^https:\/\//.test(ig) ? ig : ''; n.business.demo = chk('st-demo');
+    const pin = val('st-pin'); if (!/^\d{4}$/.test(pin)) { toast('De pincode moet uit 4 cijfers bestaan.'); return; } n.adminPin = pin;
+    const hero = val('st-hero'); n.hero = /^https:\/\//.test(hero) ? hero : (hero ? n.hero : '');
     if (!n.business.name) { toast('Vul de bedrijfsnaam in.'); return; }
     saveCfg(n, 'Instellingen opgeslagen'); return;
   }

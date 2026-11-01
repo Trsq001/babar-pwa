@@ -1,5 +1,5 @@
 /* Babar Handcarwash — offline-first app shell. Bump VERSION on every deploy. */
-const VERSION = 'babar-pwa-v1';
+const VERSION = 'babar-pwa-v2';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png', './icons/apple-touch-icon.png', './icons/favicon.png'];
 
 self.addEventListener('install', (e) => {
@@ -12,8 +12,8 @@ self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
-  // Google Fonts: cache after first use so the app keeps its look offline
-  if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') {
+  // fonts and stock photos: cache after first use so the app keeps its look offline
+  if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com' || url.hostname === 'images.unsplash.com') {
     e.respondWith(caches.open(VERSION).then(async (c) => (await c.match(req)) || fetch(req).then((r) => { c.put(req, r.clone()); return r; })));
     return;
   }
