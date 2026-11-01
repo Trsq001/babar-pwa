@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="nl-BE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d0e10">
+<meta name="description" content="Handwas en interieurreiniging. Boek je wasbeurt online.">
+<meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Babar">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Babar Handcarwash</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500;62..125,700;62..125,800;62..125,900&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: mobile-first app shell — sticky header, single content column (max 1080px), fixed bottom tab bar on phones. */
+:root {
+  --ink: #0d0e10;        /* page */
+  --panel: #16181b;      /* cards */
+  --raised: #1f2226;     /* inputs, hover */
+  --line: #2c3035;       /* borders */
+  --fg: #f2f2ef;         /* text */
+  --muted: #9aa0a6;      /* secondary text */
+  --amber: #ffc53d;      /* the single accent */
+  --amber-ink: #1b1400;  /* text on accent */
+  --ok: #57d68d; --warn: #f5b942; --bad: #ff7a72; --info: #7cc4ff;
+  --display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r: 18px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--ink); color: var(--fg); }
+body { font-family: var(--body); font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; min-height: 100%; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 50; background: var(--ink); }
+button, input, select, textarea { font: inherit; color: inherit; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.banner { background: var(--amber); color: var(--amber-ink); font-size: 12px; font-weight: 700; text-align: center; padding-block: 6px; }
+.banner .wrap { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40; background: color-mix(in srgb, var(--ink) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.mark { width: 32px; height: 32px; border-radius: 9px; background: var(--amber); color: var(--amber-ink); display: grid; place-items: center; font-family: var(--display); font-weight: 900; font-size: 19px; }
+.brand b { font-family: var(--display); font-weight: 800; font-size: 18px; letter-spacing: -0.01em; font-stretch: 90%; }
+nav.desk { display: none; align-items: center; gap: 22px; font-size: 14px; color: var(--muted); }
+nav.desk a { text-decoration: none; }
+nav.desk a:hover, nav.desk a[aria-current] { color: var(--fg); }
+@media (min-width: 820px) { nav.desk { display: flex; } }
+main { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+@media (min-width: 820px) { main { padding-bottom: 48px; } }
+nav.tabs { position: fixed; inset: auto 0 0; z-index: 40; background: color-mix(in srgb, var(--ink) 95%, transparent); backdrop-filter: blur(8px); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px); }
+nav.tabs ul { list-style: none; margin: 0 auto; padding: 0; max-width: 480px; display: grid; grid-template-columns: repeat(4, 1fr); }
+nav.tabs a { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 9px 0 7px; font-size: 11px; font-weight: 600; color: var(--muted); text-decoration: none; }
+nav.tabs a[aria-current] { color: var(--amber); }
+nav.tabs svg { width: 24px; height: 24px; }
+@media (min-width: 820px) { nav.tabs { display: none; } }
+svg.i { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+h1, h2, h3 { font-family: var(--display); font-stretch: 88%; letter-spacing: -0.015em; text-wrap: balance; margin: 0; }
+.eyebrow { font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber); }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.num { font-variant-numeric: tabular-nums; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 20px; border-radius: 999px; border: 1px solid var(--line); background: transparent; font-weight: 700; cursor: pointer; text-decoration: none; transition: background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { background: var(--raised); }
+.btn.primary { background: var(--amber); border-color: var(--amber); color: var(--amber-ink); }
+.btn.primary:hover { background: #ffd36b; }
+.btn.danger { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 40%, transparent); }
+.btn.sm { height: 36px; padding: 0 14px; font-size: 13.5px; }
+.btn.lg { height: 56px; padding: 0 28px; font-size: 16px; }
+.btn[disabled] { opacity: .4; pointer-events: none; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); }
+.field { display: block; width: 100%; height: 48px; padding: 0 14px; border-radius: 12px; background: var(--raised); border: 1px solid var(--line); }
+textarea.field { height: auto; padding: 12px 14px; resize: vertical; }
+.field:focus { outline: none; border-color: var(--amber); box-shadow: 0 0 0 1px var(--amber); }
+label.lbl { display: block; font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+.chip { display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); font-size: 13px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+.pill { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.st-nieuw { background: color-mix(in srgb, var(--amber) 16%, transparent); color: var(--amber); }
+.st-in_behandeling { background: color-mix(in srgb, var(--info) 16%, transparent); color: var(--info); }
+.st-bevestigd { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+.st-afgerond { background: color-mix(in srgb, var(--fg) 10%, transparent); color: var(--muted); }
+.st-afgewezen, .st-geannuleerd { background: color-mix(in srgb, var(--bad) 14%, transparent); color: var(--bad); }
+.notice { border-radius: 12px; padding: 12px 16px; font-size: 14px; border: 1px solid var(--line); }
+.notice.err { border-color: color-mix(in srgb, var(--bad) 45%, transparent); background: color-mix(in srgb, var(--bad) 10%, transparent); }
+.notice.ok { border-color: color-mix(in srgb, var(--ok) 35%, transparent); background: color-mix(in srgb, var(--ok) 9%, transparent); }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.grid { display: grid; gap: 16px; }
+@media (min-width: 720px) { .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+section.blk { padding-block: 44px; }
+.rise { animation: rise .35s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes rise { from { opacity: .001; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) { .rise { animation: none; } * { transition: none !important; } }
+
+/* hero */
+.hero { border-bottom: 1px solid var(--line); }
+.hero .wrap { display: grid; gap: 32px; padding-block: 44px 52px; }
+@media (min-width: 820px) { .hero .wrap { grid-template-columns: 1.25fr 1fr; align-items: end; padding-block: 72px 76px; } }
+.hero h1 { font-size: clamp(44px, 11vw, 92px); font-weight: 900; line-height: .92; font-stretch: 78%; text-transform: uppercase; margin-top: 14px; }
+.hero h1 em { font-style: normal; color: var(--amber); }
+.hero p.lead { font-size: 17px; color: var(--muted); max-width: 30em; margin: 18px 0 0; }
+.ticket { position: relative; padding: 22px; }
+.ticket .big { font-family: var(--display); font-weight: 900; font-size: 64px; line-height: 1; color: var(--amber); font-stretch: 80%; }
+.ticket dl { display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; margin: 18px 0 0; font-size: 14px; }
+.ticket dt { color: var(--muted); } .ticket dd { margin: 0; font-weight: 600; text-align: right; }
+.ticket::after { content: ""; position: absolute; left: 22px; right: 22px; top: 112px; border-top: 1px dashed var(--line); }
+
+/* services */
+.svc { display: flex; flex-direction: column; overflow: hidden; }
+.svc .ph { aspect-ratio: 16/9; max-width: 100%; background: var(--raised); display: flex; align-items: flex-end; justify-content: space-between; padding: 16px 18px; border-bottom: 1px solid var(--line); position: relative; }
+.svc .ph span.cat { font-family: var(--display); font-weight: 700; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.svc .ph .drop { width: 46px; height: 46px; color: var(--line); }
+.svc .ph .pop { position: absolute; top: 14px; left: 14px; background: var(--ink); color: var(--amber); font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
+.svc .bd { padding: 18px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+.svc h3 { font-size: 22px; font-weight: 800; }
+.svc p { margin: 6px 0 0; color: var(--muted); }
+.prices { border: 1px solid var(--line); border-radius: 12px; margin-top: auto; }
+.prices div { display: flex; justify-content: space-between; align-items: center; padding: 9px 14px; font-size: 14px; gap: 10px; }
+.prices div + div { border-top: 1px solid var(--line); }
+.prices b { font-family: var(--display); font-size: 17px; min-width: 52px; text-align: right; }
+.benefits { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 26px; }
+@media (min-width: 720px) { .benefits { grid-template-columns: repeat(4, 1fr); } }
+.benefits h3 { font-size: 18px; margin: 12px 0 4px; }
+.benefits p { margin: 0; color: var(--muted); }
+.hours li { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--line); color: var(--muted); }
+.hours li.today { color: var(--fg); font-weight: 600; }
+.hours { list-style: none; margin: 0; padding: 0; }
+
+/* wizard */
+.steps { display: flex; gap: 6px; flex: 1; }
+.steps i { height: 5px; flex: 1; border-radius: 9px; background: var(--line); }
+.steps i.on { background: var(--amber); }
+.seg { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 6px; padding: 6px; border-radius: 16px; background: var(--panel); }
+.seg button { height: 44px; border-radius: 11px; border: 0; background: transparent; font-weight: 700; color: var(--muted); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--ink); }
+.opt { display: flex; align-items: center; gap: 14px; padding: 15px 16px; text-align: left; width: 100%; cursor: pointer; background: var(--panel); }
+.opt[aria-pressed="true"] { border-color: var(--amber); background: color-mix(in srgb, var(--amber) 6%, var(--panel)); }
+.opt[disabled] { opacity: .4; cursor: default; }
+.radio { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line); flex: none; display: grid; place-items: center; }
+.opt[aria-pressed="true"] .radio { background: var(--amber); border-color: var(--amber); color: var(--amber-ink); }
+.days { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; scroll-snap-type: x mandatory; margin-inline: -16px; padding-inline: 16px; }
+.day { flex: none; width: 64px; padding: 10px 0; border-radius: 16px; border: 1px solid var(--line); background: transparent; cursor: pointer; display: flex; flex-direction: column; align-items: center; scroll-snap-align: start; }
+.day b { font-family: var(--display); font-size: 24px; line-height: 1.1; }
+.day span { font-size: 12px; }
+.day[aria-selected="true"] { background: var(--amber); border-color: var(--amber); color: var(--amber-ink); }
+.day[disabled] { opacity: .28; cursor: default; }
+.times { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; }
+.time { height: 48px; border-radius: 12px; border: 1px solid var(--line); background: transparent; font-weight: 700; cursor: pointer; font-variant-numeric: tabular-nums; }
+.time[aria-selected="true"] { background: var(--amber); border-color: var(--amber); color: var(--amber-ink); }
+.bar { position: fixed; inset: auto 0 0; z-index: 45; background: color-mix(in srgb, var(--ink) 96%, transparent); backdrop-filter: blur(8px); border-top: 1px solid var(--line); padding-bottom: max(10px, env(safe-area-inset-bottom, 0px)); }
+.bar .wrap { max-width: 720px; display: flex; align-items: center; gap: 14px; padding-top: 10px; }
+.bar .sum { flex: 1; min-width: 0; font-size: 14px; }
+.bar .sum p { margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kv { display: flex; justify-content: space-between; gap: 18px; padding: 12px 18px; }
+.kv + .kv { border-top: 1px solid var(--line); }
+.kv span:last-child { text-align: right; font-weight: 600; }
+.round { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; background: transparent; cursor: pointer; flex: none; }
+
+/* admin */
+.atabs { display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid var(--line); margin-bottom: 22px; }
+.atabs button { background: none; border: 0; border-bottom: 2px solid transparent; padding: 12px 12px; color: var(--muted); font-weight: 600; cursor: pointer; white-space: nowrap; }
+.atabs button[aria-current] { color: var(--fg); border-bottom-color: var(--amber); }
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (min-width: 820px) { .tiles { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.tile { padding: 14px 16px; text-align: left; cursor: pointer; }
+.tile b { display: block; font-family: var(--display); font-size: 36px; font-weight: 900; line-height: 1; }
+.tile.hot { border-color: color-mix(in srgb, var(--amber) 60%, transparent); }
+.tile.hot b { color: var(--amber); }
+.list { list-style: none; margin: 0; padding: 0; overflow: hidden; }
+.list li + li { border-top: 1px solid var(--line); }
+.list button.item { display: flex; align-items: center; gap: 14px; width: 100%; padding: 12px 16px; background: none; border: 0; text-align: left; cursor: pointer; }
+.list button.item:hover { background: var(--raised); }
+.when { width: 64px; text-align: center; flex: none; }
+.when b { display: block; font-family: var(--display); font-size: 18px; }
+.when span { font-size: 12px; color: var(--muted); }
+.grow { flex: 1; min-width: 0; }
+.ell { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tbl-wrap { overflow-x: auto; }
+table.tbl { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 560px; }
+.tbl th, .tbl td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.tbl th { color: var(--muted); font-weight: 600; font-size: 13px; }
+.tbl input.field { height: 40px; }
+.switch { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px; }
+.switch input { width: 20px; height: 20px; accent-color: var(--amber); }
+.pad { padding: 18px; }
+@media (min-width: 720px) { .pad { padding: 22px; } }
+footer.foot { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+footer.foot .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; padding-block: 24px; }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(92px + env(safe-area-inset-bottom, 0px)); z-index: 60; background: var(--fg); color: var(--ink); padding: 10px 16px; border-radius: 12px; font-weight: 600; font-size: 14px; max-width: calc(100% - 32px); }
+.confirm-box { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+</style>
+
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+(() => {
+'use strict';
+
+/* ------------------------------------------------------------ demo defaults
+   Used to fill an empty local demo. All values are examples to be confirmed
+   with the owner; the banner says so while demo mode is on. */
+const DEFAULT_CONFIG = {
+  business: { name: 'Babar Handcarwash', tagline: 'Jouw wagen, onze zorg.', address: '', postal: '', city: '', phone: '', whatsapp: '', email: '', instagram: '', demo: true },
+  vehicles: [ { id: 'car', name: 'Personenwagen', active: true }, { id: 'suv', name: 'SUV', active: true }, { id: 'van', name: 'Bestelwagen', active: true } ],
+  services: [
+    { id: 's1', name: 'Buitenwas', category: 'Buitenwas', popular: true, active: true, description: 'Volledige handwas van de carrosserie met pH-neutrale shampoo, velgen en banden gereinigd, met de hand drooggemaakt.', prices: { car: [2500, 30], suv: [3000, 40], van: [3500, 50] } },
+    { id: 's2', name: 'Binnenreiniging', category: 'Binnenreiniging', popular: false, active: true, description: 'Stofzuigen van zetels, vloer en koffer, dashboard en deurpanelen afgenomen, ruiten binnenkant gereinigd.', prices: { car: [3000, 45], suv: [3500, 50], van: [4000, 60] } },
+    { id: 's3', name: 'Binnen + buiten', category: 'Binnen + buiten', popular: true, active: true, description: 'De complete beurt: handwas buiten en grondige reiniging binnen in één afspraak.', prices: { car: [5000, 75], suv: [6000, 90], van: [7000, 105] } },
+    { id: 's4', name: 'Dieptereiniging', category: 'Dieptereiniging', popular: true, active: true, description: 'Shampooneren van zetels en tapijten, vlekken behandelen en kunststof verzorgen. Ideaal bij verkoop of na de winter.', prices: { car: [12000, 180], suv: [14000, 210], van: [16000, 240] } },
+    { id: 's5', name: 'Velgen & banden', category: 'Extra diensten', popular: false, active: true, description: 'Extra grondige reiniging van velgen met velgenreiniger en bandenzwart.', prices: { car: [1500, 20], suv: [1800, 20], van: [1800, 20] } },
+    { id: 's6', name: 'Wax-behandeling', category: 'Extra diensten', popular: false, active: true, description: 'Beschermende waxlaag met de hand aangebracht voor extra glans en waterafstoting.', prices: { car: [2500, 30], suv: [3000, 40] } }
+  ],
+  hours: { 1: [true, '09:00', '18:00'], 2: [true, '09:00', '18:00'], 3: [true, '09:00', '18:00'], 4: [true, '09:00', '18:00'], 5: [true, '09:00', '18:00'], 6: [true, '09:00', '17:00'], 7: [false, '09:00', '17:00'] },
+  rules: { slot: 30, buffer: 10, capacity: 2, lead: 60, maxDays: 30 },
+  blocks: [],
+  promos: [ { id: 'p1', title: 'Winterklaar', description: 'Binnen + buiten met gratis velgenreiniging. Voorbeeldactie voor de demo.', label: 'Velgen gratis', code: 'WINTER', from: '', until: '', active: true, home: true } ]
+};
+
+/* ------------------------------------------------------------ time & money (Europe/Brussels) */
+const TZ = 'Europe/Brussels';
+const fmt = (o) => new Intl.DateTimeFormat('nl-BE', Object.assign({ timeZone: TZ }, o));
+const ymd = (d = new Date()) => new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
+const hm = (d) => new Intl.DateTimeFormat('en-GB', { timeZone: TZ, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(d);
+function tzOffsetMin(at) {
+  const p = new Intl.DateTimeFormat('en-US', { timeZone: TZ, hourCycle: 'h23', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).formatToParts(at);
+  const g = (t) => +p.find((x) => x.type === t).value;
+  return Math.round((Date.UTC(g('year'), g('month') - 1, g('day'), g('hour'), g('minute'), g('second')) - at.getTime()) / 60000);
+}
+function toMs(date, time) {
+  const [y, mo, d] = date.split('-').map(Number); const [h, mi] = time.split(':').map(Number);
+  const guess = Date.UTC(y, mo - 1, d, h, mi);
+  let ts = guess - tzOffsetMin(new Date(guess)) * 60000;
+  return guess - tzOffsetMin(new Date(ts)) * 60000;
+}
+const addDays = (date, n) => { const [y, m, d] = date.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10); };
+const isoDow = (date) => { const [y, m, d] = date.split('-').map(Number); const w = new Date(Date.UTC(y, m - 1, d)).getUTCDay(); return w === 0 ? 7 : w; };
+const minOf = (t) => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+const tOf = (m) => String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+const euro = (c) => new Intl.NumberFormat('nl-BE', { style: 'currency', currency: 'EUR', minimumFractionDigits: c % 100 ? 2 : 0 }).format(c / 100);
+const dur = (m) => m < 60 ? m + ' min' : (m % 60 ? Math.floor(m / 60) + ' u ' + (m % 60) + ' min' : m / 60 + ' u');
+const dLong = (ms) => fmt({ weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(ms));
+const dShort = (ms) => fmt({ weekday: 'short', day: 'numeric', month: 'short' }).format(new Date(ms)).replace(/\./g, '');
+const dt = (ms) => fmt({ day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }).format(new Date(ms));
+const WEEKDAYS = ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag'];
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const uid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2)).replace(/-/g, '').slice(0, 20);
+const REF_ABC = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const newRef = () => 'BB-' + Array.from({ length: 6 }, () => REF_ABC[Math.floor(Math.random() * REF_ABC.length)]).join('');
+
+const STATUS = { nieuw: 'Nieuw', in_behandeling: 'In behandeling', bevestigd: 'Bevestigd', afgerond: 'Afgerond', afgewezen: 'Afgewezen', geannuleerd: 'Geannuleerd' };
+const NEXT = { nieuw: ['in_behandeling', 'bevestigd', 'afgewezen', 'geannuleerd'], in_behandeling: ['bevestigd', 'afgewezen', 'geannuleerd'], bevestigd: ['afgerond', 'geannuleerd'], afgerond: [], afgewezen: [], geannuleerd: [] };
+const ACTION = { in_behandeling: 'In behandeling nemen', bevestigd: 'Bevestigen', afgerond: 'Afgerond', afgewezen: 'Afwijzen', geannuleerd: 'Annuleren' };
+const ACTIVE = (s) => s === 'nieuw' || s === 'in_behandeling' || s === 'bevestigd';
+const CATS = ['Buitenwas', 'Binnenreiniging', 'Binnen + buiten', 'Dieptereiniging', 'Extra diensten'];
+const ERR = {
+  full: 'Dit tijdstip is net volzet geraakt. Kies een ander moment.',
+  blocked: 'Op dit moment zijn we gesloten. Kies een ander moment.',
+  closed: 'Op deze dag zijn we gesloten.',
+  hours: 'Deze dienst past niet binnen de openingsuren.',
+  past: 'Dit tijdstip is niet meer beschikbaar.',
+  far: 'Zo ver vooruit kan je nog niet boeken.',
+  busy: 'Het is even druk. Probeer het over enkele seconden opnieuw.'
+};
+
+/* ------------------------------------------------------------ availability (same rules as the Supabase version) */
+function slotProblem(cfg, slots, startMs, minutes, excludeId, enforceLead) {
+  const R = cfg.rules; const date = ymd(new Date(startMs)); const local = hm(new Date(startMs));
+  const endMs = startMs + minutes * 60000; const blockMs = endMs + R.buffer * 60000;
+  if (enforceLead) {
+    if (startMs < Date.now() + R.lead * 60000) return 'past';
+    if (date > addDays(ymd(), R.maxDays)) return 'far';
+  }
+  const h = cfg.hours[isoDow(date)];
+  if (!h || !h[0]) return 'closed';
+  if (minOf(local) < minOf(h[1]) || ymd(new Date(endMs)) !== date || minOf(hm(new Date(endMs))) > minOf(h[2])) return 'hours';
+  if ((cfg.blocks || []).some((b) => b.start < endMs && b.end > startMs)) return 'blocked';
+  const active = slots.filter((s) => ACTIVE(s.status) && s.id !== excludeId);
+  const points = [startMs, ...active.filter((s) => s.startMs > startMs && s.startMs < blockMs).map((s) => s.startMs)];
+  for (const p of points) if (active.filter((s) => s.startMs <= p && s.blockMs > p).length >= R.capacity) return 'full';
+  return null;
+}
+function freeTimes(cfg, slots, date, minutes) {
+  const h = cfg.hours[isoDow(date)]; if (!h || !h[0]) return [];
+  const out = [];
+  for (let m = minOf(h[1]); m + minutes <= minOf(h[2]); m += cfg.rules.slot) {
+    const ms = toMs(date, tOf(m));
+    if (!slotProblem(cfg, slots, ms, minutes, null, true)) out.push({ ms, label: tOf(m) });
+  }
+  return out;
+}
+
+/* ------------------------------------------------------------ storage: shared database, or this browser only */
+const LS_KEY = 'babar-demo-v1';
+const lsRead = () => { try { return JSON.parse(localStorage.getItem(LS_KEY) || 'null'); } catch { return null; } };
+const lsWrite = (v) => { try { localStorage.setItem(LS_KEY, JSON.stringify(v)); } catch {} };
+
+const S = {
+  mode: 'loading', db: null, me: null, admin: false, cfg: null, cfgMissing: false,
+  slots: [], pii: {}, mine: [], stale: false,
+  route: 'home', wiz: null, adminTab: 'overzicht', sel: null, filter: { status: '', date: '', q: '' }, lastBooking: null,
+  confirming: null, toast: null
+};
+
+function localState() {
+  const v = lsRead() || {};
+  if (!v.cfg) v.cfg = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+  v.slots = v.slots || []; v.pii = v.pii || {}; v.mine = v.mine || [];
+  return v;
+}
+function saveLocal() { lsWrite({ cfg: S.cfg, slots: S.slots, pii: S.pii, mine: S.mine }); }
+
+const Store = {
+  async saveConfig(cfg) {
+    S.cfg = cfg;
+    if (S.mode === 'remote') await S.db.doc('config/main').set(cfg); else saveLocal();
+  },
+  async createBooking(b, pii) {
+    if (S.mode === 'remote') {
+      const lock = S.db.doc('locks/booking'); let got = false;
+      for (let i = 0; i < 8 && !got; i++) {
+        try { got = (await lock.acquire({ holder: S.me + ':' + b.id, ttlMs: 8000 })).acquired; } catch { got = false; }
+        if (!got) await new Promise((r) => setTimeout(r, 500 + Math.random() * 400));
+      }
+      if (!got) return 'busy';
+      // re-read that day's bookings under the lease, then check again
+      const day = ymd(new Date(b.startMs));
+      const snap = await S.db.collection('slots').where('startMs', '>=', toMs(day, '00:00')).where('startMs', '<', toMs(addDays(day, 1), '00:00')).get();
+      const fresh = snap.docs.map((d) => Object.assign({ id: d.id }, d.data()));
+      const p = slotProblem(S.cfg, fresh, b.startMs, b.minutes, null, true);
+      if (p) return p;
+      await S.db.doc('slots/' + b.id).set(b);
+      await S.db.doc('requests/' + S.me + '/items/' + b.id).set(Object.assign({ booking: b.id, createdMs: b.createdMs }, pii));
+      return null;
+    }
+    const p = slotProblem(S.cfg, S.slots, b.startMs, b.minutes, null, true);
+    if (p) return p;
+    S.slots.push(b); S.pii[b.id] = pii; S.mine.push(b.id); saveLocal();
+    return null;
+  },
+  async updateSlot(id, patch) {
+    const s = S.slots.find((x) => x.id === id); Object.assign(s, patch);
+    if (S.mode === 'remote') await S.db.doc('slots/' + id).update(patch); else saveLocal();
+  },
+  async loadPii(slot) {
+    if (S.pii[slot.id]) return S.pii[slot.id];
+    if (S.mode !== 'remote' || !slot.owner) return null;
+    const d = await S.db.doc('requests/' + slot.owner + '/items/' + slot.id).get();
+    S.pii[slot.id] = d.exists ? d.data() : { missing: true };
+    return S.pii[slot.id];
+  },
+  async savePii(slot, patch) {
+    S.pii[slot.id] = Object.assign({}, S.pii[slot.id], patch);
+    if (S.mode === 'remote') await S.db.doc('requests/' + slot.owner + '/items/' + slot.id).update(patch); else saveLocal();
+  }
+};
+
+async function boot() {
+  let db = null, user = null;
+  try { [db, user] = await Promise.all([window.claude?.use?.('db'), window.claude?.use?.('user')]); } catch {}
+  let canWrite = null;
+  try { canWrite = user ? await user.can('data.write') : null; } catch {}
+  if (db && user && canWrite !== false) {
+    S.db = db; S.mode = 'remote';
+    try { S.me = await user.id(); S.admin = await user.canEdit(); } catch {}
+    const timer = setTimeout(() => { S.stale = true; render(); }, 10000);
+    db.doc('config/main').onSnapshot((d) => {
+      clearTimeout(timer); S.stale = false;
+      if (d.exists) { S.cfg = d.data(); S.cfgMissing = false; } else { S.cfgMissing = true; S.cfg = S.cfg || JSON.parse(JSON.stringify(DEFAULT_CONFIG)); }
+      render();
+    }, () => { clearTimeout(timer); S.stale = true; render(); });
+    db.collection('slots').where('startMs', '>=', Date.now() - 90 * 864e5).orderBy('startMs').limit(1000).onSnapshot((q) => {
+      S.slots = q.docs.map((d) => Object.assign({ id: d.id }, d.data())); render();
+    }, () => {});
+    if (S.me) db.collection('requests/' + S.me + '/items').onSnapshot((q) => {
+      S.mine = q.docs.map((d) => d.id); render();
+    }, () => {});
+  } else {
+    S.mode = 'local'; S.admin = true;
+    const v = localState(); S.cfg = v.cfg; S.slots = v.slots; S.pii = v.pii; S.mine = v.mine;
+  }
+  render();
+}
+
+/* ------------------------------------------------------------ icons */
+const IC = {
+  home: '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/>',
+  drop: '<path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11Z"/>',
+  cal: '<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+  pin: '<path d="M12 21s7-6.1 7-11.5a7 7 0 0 0-14 0C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/>',
+  right: '<path d="M5 12h14M13 6l6 6-6 6"/>', left: '<path d="M19 12H5M11 6l-6 6 6 6"/>',
+  check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>', clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+  hand: '<path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11M11 10V4.5a1.5 1.5 0 0 1 3 0V11M14 10.5V6a1.5 1.5 0 0 1 3 0v7c0 4-2.5 7.5-6.5 7.5-2.7 0-4.3-1.5-5.6-3.6L3.4 14a1.5 1.5 0 0 1 2.5-1.6L8 15"/>',
+  shield: '<path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.3 7.5 9.5 4.3-1.2 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/>',
+  spark: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.3 6.3l2.5 2.5M15.2 15.2l2.5 2.5M6.3 17.7l2.5-2.5M15.2 8.8l2.5-2.5"/>',
+  car: '<path d="M4 16.5V12l2-5h12l2 5v4.5"/><path d="M3 12h18v4.5H3z"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/>',
+  route: '<circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/>',
+  tag: '<path d="M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l8 8a1.5 1.5 0 0 1 0 2.1l-7 7a1.5 1.5 0 0 1-2.1 0l-8-8Z"/><circle cx="8" cy="8" r="1.5"/>'
+};
+const icon = (n, cls = 'i') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
+
+/* ------------------------------------------------------------ routing */
+const ROUTES = ['home', 'diensten', 'boeken', 'contact', 'acties', 'mijn', 'beheer', 'privacy'];
+function readRoute() { const h = location.hash.slice(1); S.route = ROUTES.includes(h) ? h : 'home'; }
+function go(r) { if (location.hash.slice(1) === r) { readRoute(); render(); } else location.hash = r; window.scrollTo({ top: 0 }); }
+window.addEventListener('hashchange', () => { readRoute(); if (S.route === 'boeken' && !S.wiz) startWizard(); render(); window.scrollTo({ top: 0 }); });
+
+/* ------------------------------------------------------------ helpers */
+const cfg = () => S.cfg;
+const vehicles = () => cfg().vehicles.filter((v) => v.active);
+const services = () => cfg().services.filter((s) => s.active && vehicles().some((v) => s.prices[v.id]));
+const priceOf = (s, vid) => s.prices[vid] || null;
+const fromPrice = (s) => Math.min(...vehicles().filter((v) => s.prices[v.id]).map((v) => s.prices[v.id][0]));
+const promosLive = () => (cfg().promos || []).filter((p) => p.active && (!p.from || p.from <= ymd()) && (!p.until || p.until >= ymd()));
+const addr = () => { const b = cfg().business; return b.address ? [b.address, [b.postal, b.city].filter(Boolean).join(' ')].filter(Boolean).join(', ') : ''; };
+const routeUrl = () => addr() ? 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(addr() + ', België') : '';
+const waUrl = (num, text) => { if (!num) return ''; let d = num.replace(/\D/g, ''); if (d.startsWith('00')) d = d.slice(2); else if (d.startsWith('0')) d = '32' + d.slice(1); return 'https://wa.me/' + d + (text ? '?text=' + encodeURIComponent(text) : ''); };
+function toast(msg) { S.toast = msg; render(); clearTimeout(toast.t); toast.t = setTimeout(() => { S.toast = null; render(); }, 2600); }
+
+/* ------------------------------------------------------------ views: public */
+function svcCard(s) {
+  const rows = vehicles().filter((v) => s.prices[v.id]).map((v) => `<div><span class="muted">${esc(v.name)}</span><span class="row" style="gap:10px"><span class="muted small row" style="gap:4px">${icon('clock', 'i')} ${dur(s.prices[v.id][1])}</span><b class="num">${euro(s.prices[v.id][0])}</b></span></div>`).join('');
+  return `<article class="card svc">
+    <div class="ph">${s.popular ? '<span class="pop">Populair</span>' : ''}<span class="cat">${esc(s.category)}</span>${icon('drop', 'i drop')}</div>
+    <div class="bd"><div><h3>${esc(s.name)}</h3><p>${esc(s.description)}</p></div>
+      <div class="prices">${rows}</div>
+      <button class="btn primary" data-act="book" data-id="${s.id}">Boek nu ${icon('right')}</button></div></article>`;
+}
+function promoCard(p) {
+  return `<article class="card pad stack" style="border-color:color-mix(in srgb,var(--amber) 35%,var(--line))">
+    <div class="row" style="justify-content:space-between"><span class="eyebrow row" style="gap:6px">${icon('tag')} Actie</span>${p.label ? `<span class="pill" style="background:var(--amber);color:var(--amber-ink)">${esc(p.label)}</span>` : ''}</div>
+    <h3 style="font-size:22px">${esc(p.title)}</h3><p class="muted" style="margin:0">${esc(p.description)}</p>
+    <div class="row small muted" style="justify-content:space-between"><span>${p.until ? 'Geldig t.e.m. ' + esc(p.until.split('-').reverse().join('/')) : 'Doorlopende actie'}</span>${p.code ? `<span>Code <b style="color:var(--fg);border:1px dashed var(--amber);border-radius:6px;padding:1px 7px;font-family:ui-monospace,monospace">${esc(p.code)}</b></span>` : ''}</div>
+    <button class="btn" data-act="book-promo" data-id="${p.id}">Boek met deze actie</button></article>`;
+}
+function hoursList() {
+  const today = isoDow(ymd());
+  return `<ul class="hours">${[1, 2, 3, 4, 5, 6, 7].map((d) => { const h = cfg().hours[d]; return `<li class="${d === today ? 'today' : ''}"><span>${WEEKDAYS[d - 1]}${d === today ? ' <span class="small" style="color:var(--amber)">vandaag</span>' : ''}</span><span class="num">${h && h[0] ? h[1] + ' – ' + h[2] : 'Gesloten'}</span></li>`; }).join('')}</ul>`;
+}
+function contactBlock() {
+  const b = cfg().business; const r = routeUrl(); const w = waUrl(b.whatsapp, 'Hallo ' + b.name + ', ik heb een vraag:');
+  return `<div class="stack">
+    <div class="row" style="align-items:flex-start;flex-wrap:nowrap">${icon('pin')}<span>${addr() ? esc(addr()) : '<span class="muted">Adres volgt binnenkort.</span>'}</span></div>
+    ${b.phone ? `<div class="row small"><span class="muted">Telefoon</span><b class="num" style="user-select:all">${esc(b.phone)}</b></div>` : ''}
+    ${b.email ? `<div class="row small"><span class="muted">E-mail</span><b style="user-select:all">${esc(b.email)}</b></div>` : ''}
+    <div class="row">${r ? `<a class="btn primary" href="${r}" target="_blank" rel="noopener">${icon('route')} Route plannen</a>` : ''}${w ? `<a class="btn" href="${w}" target="_blank" rel="noopener">WhatsApp</a>` : ''}${b.instagram ? `<a class="btn" href="${esc(b.instagram)}" target="_blank" rel="noopener">Instagram</a>` : ''}</div>
+    ${!r && !b.phone && !b.email ? '<p class="small muted" style="margin:0">Adres en telefoon volgen zodra de eigenaar ze bevestigt. Boeken kan nu al online.</p>' : ''}
+  </div>`;
+}
+function viewHome() {
+  const sv = services(); const pop = (sv.filter((s) => s.popular).length ? sv.filter((s) => s.popular) : sv).slice(0, 3);
+  const low = sv.length ? Math.min(...sv.map(fromPrice)) : null; const promos = promosLive().filter((p) => p.home);
+  const nextOpen = (() => { for (let i = 0; i < 8; i++) { const d = addDays(ymd(), i); const h = cfg().hours[isoDow(d)]; if (h && h[0] && (i > 0 || minOf(hm(new Date())) < minOf(h[2]))) return (i === 0 ? 'Vandaag' : i === 1 ? 'Morgen' : WEEKDAYS[isoDow(d) - 1]) + ' ' + h[1] + '–' + h[2]; } return '—'; })();
+  return `<section class="hero"><div class="wrap">
+      <div class="rise"><p class="eyebrow">${esc(cfg().business.name)} · handwas</p>
+        <h1>${esc(cfg().business.tagline).replace(/,\s*/, ',<br><em>')}</em></h1>
+        <p class="lead">Handwas en interieurreiniging voor personenwagens, SUV's en bestelwagens. Kies je dienst en vraag in een minuut een tijdstip aan.</p>
+        <div class="row" style="margin-top:28px"><button class="btn primary lg" data-go="boeken">Boek je wasbeurt ${icon('right')}</button><button class="btn lg" data-go="diensten">Bekijk diensten</button></div></div>
+      ${low != null ? `<div class="card ticket rise"><p class="small muted" style="margin:0">Handwas vanaf</p><div class="big num">${euro(low)}</div>
+        <dl><dt>Open</dt><dd>${esc(nextOpen)}</dd><dt>Diensten</dt><dd class="num">${sv.length}</dd><dt>Types wagens</dt><dd>${vehicles().map((v) => esc(v.name)).join(', ')}</dd></dl></div>` : ''}
+    </div></section>
+    ${pop.length ? `<section class="blk"><div class="wrap"><div class="row" style="justify-content:space-between;align-items:flex-end;margin-bottom:22px"><div><p class="eyebrow">Populair</p><h2 style="font-size:38px;margin-top:6px">Onze diensten</h2></div><button class="btn sm" data-go="diensten">Alle diensten ${icon('right')}</button></div>
+      <div class="grid g3">${pop.map(svcCard).join('')}</div></div></section>` : ''}
+    ${promos.length ? `<section class="blk" style="padding-top:0"><div class="wrap"><p class="eyebrow">Acties</p><h2 style="font-size:38px;margin:6px 0 22px">Nu lopend</h2><div class="grid g2">${promos.map(promoCard).join('')}</div></div></section>` : ''}
+    <section class="blk" style="background:var(--panel);border-block:1px solid var(--line)"><div class="wrap"><p class="eyebrow">Waarom handwas</p><h2 style="font-size:38px;margin-top:6px;max-width:16em">Aandacht die een wasstraat niet geeft</h2>
+      <ul class="benefits">${[['hand', 'Echt met de hand', 'Geen borstels die krassen achterlaten. Elke wagen wordt met zachte washandschoenen gewassen.'], ['shield', 'Zacht voor je lak', 'pH-neutrale producten en de twee-emmermethode beschermen lak en coating.'], ['spark', 'Oog voor detail', "Velgen, deurstijlen en ruiten: de plekken die een machine overslaat."], ['car', 'Binnen én buiten', 'Van een snelle buitenwas tot een volledige dieptereiniging.']].map(([i, t, d]) => `<li><span style="color:var(--amber)">${icon(i, 'i')}</span><h3>${t}</h3><p>${d}</p></li>`).join('')}</ul></div></section>
+    <section class="blk"><div class="wrap grid g2"><div class="card pad"><p class="eyebrow">Langskomen</p><h2 style="font-size:28px;margin:6px 0 16px">Adres &amp; contact</h2>${contactBlock()}</div>
+      <div class="card pad"><p class="eyebrow">Openingsuren</p><h2 style="font-size:28px;margin:6px 0 8px">Wanneer open</h2>${hoursList()}</div></div></section>`;
+}
+function viewDiensten() {
+  const sv = services(); const cats = [...CATS.filter((c) => sv.some((s) => s.category === c)), ...[...new Set(sv.map((s) => s.category))].filter((c) => !CATS.includes(c))];
+  return `<div class="wrap rise" style="padding-block:36px"><p class="eyebrow">Prijzen per type wagen</p><h1 style="font-size:48px;margin-top:6px">Diensten</h1>
+    <p class="muted" style="max-width:36em">Alle prijzen inclusief btw. De duur is een richtlijn; bij sterk vervuilde wagens kan het iets langer duren.</p>
+    ${cats.map((c) => `<section style="margin-top:36px"><h2 style="font-size:24px;margin-bottom:16px">${esc(c)}</h2><div class="grid g3">${sv.filter((s) => s.category === c).map(svcCard).join('')}</div></section>`).join('')}
+    ${sv.length ? '' : '<p class="muted">Er zijn momenteel geen diensten beschikbaar.</p>'}</div>`;
+}
+function viewActies() {
+  const p = promosLive();
+  return `<div class="wrap rise" style="padding-block:36px"><p class="eyebrow">Voordeel</p><h1 style="font-size:48px;margin:6px 0 24px">Acties</h1>${p.length ? `<div class="grid g2">${p.map(promoCard).join('')}</div>` : '<p class="muted">Er lopen momenteel geen acties.</p>'}</div>`;
+}
+function viewContact() {
+  return `<div class="wrap rise" style="padding-block:36px"><p class="eyebrow">${esc(cfg().business.name)}</p><h1 style="font-size:48px;margin:6px 0 24px">Contact</h1>
+    <div class="grid g2"><div class="card pad"><h2 style="font-size:22px;margin-bottom:16px">Adres &amp; bereikbaarheid</h2>${contactBlock()}</div><div class="card pad"><h2 style="font-size:22px;margin-bottom:8px">Openingsuren</h2>${hoursList()}</div></div>
+    <button class="btn primary lg" style="margin-top:24px" data-go="boeken">Boek je wasbeurt ${icon('right')}</button></div>`;
+}
+function viewPrivacy() {
+  return `<article class="wrap rise" style="padding-block:36px;max-width:720px"><p class="eyebrow">Sjabloon · na te kijken door de eigenaar</p><h1 style="font-size:44px;margin:6px 0 20px">Privacybeleid</h1>
+  <div class="stack muted" style="gap:14px">
+  <p style="margin:0">${esc(cfg().business.name)} verwerkt je gegevens enkel om je afspraak te plannen: naam en telefoon (verplicht), e-mail, nummerplaat en opmerking (optioneel), en de gekozen dienst, datum en uur.</p>
+  <p style="margin:0"><b style="color:var(--fg)">Rechtsgrond:</b> uitvoering van een overeenkomst of precontractuele maatregelen (art. 6.1.b AVG). We sturen geen reclame zonder jouw toestemming.</p>
+  <p style="margin:0"><b style="color:var(--fg)">Bewaartermijn:</b> persoonsgegevens worden 12 maanden na de afspraak verwijderd.</p>
+  <p style="margin:0"><b style="color:var(--fg)">Jouw rechten:</b> inzage, verbetering, verwijdering, beperking en bezwaar. Klachten kan je richten aan de Gegevensbeschermingsautoriteit.</p></div></article>`;
+}
+
+/* ------------------------------------------------------------ booking wizard */
+function startWizard(serviceId, comment) {
+  const v = vehicles()[0];
+  const s = serviceId ? cfg().services.find((x) => x.id === serviceId) : null;
+  const vid = s ? (vehicles().find((x) => s.prices[x.id]) || v).id : v?.id;
+  S.wiz = { step: 1, vid, sid: s ? s.id : null, date: null, ms: null, label: '', err: '', sending: false,
+    form: { name: '', phone: '', email: '', plate: '', comment: comment || '', privacy: false, website: '' }, opened: Date.now() };
+}
+function wizValid() {
+  const w = S.wiz; const f = w.form;
+  if (w.step === 1) return !!(w.sid && priceOf(cfg().services.find((s) => s.id === w.sid), w.vid));
+  if (w.step === 2) return !!w.ms;
+  if (w.step === 3) return f.name.trim().length >= 2 && f.phone.replace(/\D/g, '').length >= 8 && (!f.email || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email)) && f.privacy;
+  return true;
+}
+function viewBoeken() {
+  if (!S.wiz) startWizard();
+  const w = S.wiz; const svc = cfg().services.find((s) => s.id === w.sid); const pr = svc ? priceOf(svc, w.vid) : null;
+  const titles = { 1: 'Kies je dienst', 2: 'Kies dag en uur', 3: 'Jouw gegevens', 4: 'Controleer en verstuur' };
+  let body = '';
+  if (w.step === 1) {
+    body = `<label class="lbl">Type wagen</label><div class="seg">${vehicles().map((v) => `<button data-act="w-veh" data-id="${v.id}" aria-pressed="${v.id === w.vid}">${esc(v.name)}</button>`).join('')}</div>
+      <label class="lbl" style="margin-top:24px">Dienst</label><div class="stack" style="gap:10px">${services().map((s) => { const p = priceOf(s, w.vid); const on = s.id === w.sid; return `<button class="card opt" data-act="w-svc" data-id="${s.id}" aria-pressed="${on}" ${p ? '' : 'disabled'}><span class="radio">${on ? icon('check', 'i') : ''}</span><span class="grow"><b>${esc(s.name)}</b><span class="small muted" style="display:block">${p ? dur(p[1]) : 'Niet voor dit type wagen'}</span></span>${p ? `<b class="num" style="font-family:var(--display);font-size:18px">${euro(p[0])}</b>` : ''}</button>`; }).join('')}</div>`;
+  } else if (w.step === 2) {
+    const days = Array.from({ length: cfg().rules.maxDays + 1 }, (_, i) => addDays(ymd(), i));
+    if (!w.date) w.date = days.find((d) => { const h = cfg().hours[isoDow(d)]; return h && h[0] && freeTimes(cfg(), S.slots, d, pr[1]).length; }) || days[0];
+    const times = freeTimes(cfg(), S.slots, w.date, pr[1]);
+    if (w.ms && !times.some((t) => t.ms === w.ms)) { w.ms = null; }
+    body = `<div class="days" role="listbox" aria-label="Dag">${days.map((d) => { const h = cfg().hours[isoDow(d)]; const ms = toMs(d, '12:00'); const parts = fmt({ weekday: 'short', day: 'numeric', month: 'short' }).formatToParts(new Date(ms)); const g = (t) => (parts.find((p) => p.type === t) || {}).value || ''; return `<button class="day" role="option" data-act="w-day" data-id="${d}" aria-selected="${d === w.date}" ${h && h[0] ? '' : 'disabled'}><span>${g('weekday').replace('.', '')}</span><b class="num">${g('day')}</b><span>${g('month').replace('.', '')}</span></button>`; }).join('')}</div>
+      <p class="small muted" style="margin:18px 0 10px;text-transform:capitalize">${dLong(toMs(w.date, '12:00'))}</p>
+      ${times.length ? `<div class="times" role="listbox" aria-label="Uur">${times.map((t) => `<button class="time" role="option" data-act="w-time" data-id="${t.ms}" data-label="${t.label}" aria-selected="${t.ms === w.ms}">${t.label}</button>`).join('')}</div>` : `<p class="card pad muted" style="margin:0">Op deze dag is er geen vrij tijdstip meer voor ${esc(svc.name.toLowerCase())}. Kies een andere dag.</p>`}`;
+  } else if (w.step === 3) {
+    const f = w.form;
+    body = `<form id="wform" class="stack" style="gap:16px" autocomplete="on">
+      <div><label class="lbl" for="f-name">Naam *</label><input class="field" id="f-name" data-f="name" autocomplete="name" maxlength="80" value="${esc(f.name)}"></div>
+      <div><label class="lbl" for="f-phone">Telefoon *</label><input class="field" id="f-phone" data-f="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="0470 12 34 56" maxlength="25" value="${esc(f.phone)}"></div>
+      <div><label class="lbl" for="f-email">E-mail (optioneel)</label><input class="field" id="f-email" data-f="email" type="email" autocomplete="email" maxlength="120" value="${esc(f.email)}"></div>
+      <div><label class="lbl" for="f-plate">Nummerplaat (optioneel)</label><input class="field" id="f-plate" data-f="plate" placeholder="1-ABC-123" maxlength="15" style="text-transform:uppercase" value="${esc(f.plate)}"></div>
+      <div><label class="lbl" for="f-comment">Opmerking (optioneel)</label><textarea class="field" id="f-comment" data-f="comment" rows="3" maxlength="500" placeholder="Bv. veel hondenhaar, kinderzitje in de wagen">${esc(f.comment)}</textarea></div>
+      <div aria-hidden="true" style="position:absolute;left:-9999px;height:0;overflow:hidden"><label for="f-website">Website</label><input id="f-website" data-f="website" tabindex="-1" autocomplete="off"></div>
+      <label class="switch" style="align-items:flex-start"><input type="checkbox" id="f-privacy" data-f="privacy" ${f.privacy ? 'checked' : ''}><span class="small muted">Ik ga akkoord dat mijn gegevens gebruikt worden om deze afspraak te plannen, zoals beschreven in het <a href="#privacy" style="color:var(--fg)">privacybeleid</a>.</span></label></form>`;
+  } else {
+    const f = w.form; const v = cfg().vehicles.find((x) => x.id === w.vid);
+    const rows = [['Dienst', svc.name], ['Wagen', v.name], ['Datum', dLong(w.ms)], ['Uur', w.label + ' · ca. ' + dur(pr[1])], ['Prijs', euro(pr[0])], ['Naam', f.name], ['Telefoon', f.phone]].concat(f.email ? [['E-mail', f.email]] : [], f.plate ? [['Nummerplaat', f.plate.toUpperCase()]] : [], f.comment ? [['Opmerking', f.comment]] : []);
+    body = `<div class="card">${rows.map(([k, val]) => `<div class="kv"><span class="muted">${k}</span><span>${esc(val)}</span></div>`).join('')}<p class="small muted" style="margin:0;padding:14px 18px;border-top:1px solid var(--line)">Dit is een aanvraag. Je afspraak is pas vast wanneer wij ze bevestigen. Betalen doe je ter plaatse.</p></div>`;
+  }
+  const sum = svc && pr ? `<p><b>${esc(svc.name)}</b></p><p class="muted num">${euro(pr[0])}${w.ms ? ' · ' + dShort(w.ms) + ', ' + w.label : ''}</p>` : '<p class="muted">Kies een dienst</p>';
+  return `<div class="wrap" style="max-width:720px;padding-block:24px 150px">
+    <div class="row" style="flex-wrap:nowrap">${w.step > 1 ? `<button class="round" data-act="w-back" aria-label="Vorige stap">${icon('left')}</button>` : `<button class="round" data-go="home" aria-label="Terug naar home">${icon('left')}</button>`}
+      <div class="steps" aria-label="Stap ${w.step} van 4">${[1, 2, 3, 4].map((n) => `<i class="${n <= w.step ? 'on' : ''}"></i>`).join('')}</div><span class="small muted num">${w.step}/4</span></div>
+    <h1 style="font-size:40px;margin:22px 0 20px">${titles[w.step]}</h1>
+    ${w.err ? `<p class="notice err" role="alert">${esc(w.err)}</p>` : ''}
+    <div class="rise" data-k="${w.step}">${body}</div></div>
+    <div class="bar"><div class="wrap"><div class="sum">${sum}</div>
+      ${w.step < 4 ? `<button class="btn primary" id="w-next" data-act="w-next" ${wizValid() ? '' : 'disabled'}>Verder ${icon('right')}</button>` : `<button class="btn primary" data-act="w-send" ${w.sending ? 'disabled' : ''}>${w.sending ? 'Versturen…' : 'Verstuur aanvraag'}</button>`}</div></div>`;
+}
+async function sendBooking() {
+  const w = S.wiz; if (w.sending) return;
+  if (w.form.website || Date.now() - w.opened < 3000) { w.err = 'Er ging iets mis. Probeer opnieuw.'; render(); return; }
+  const svc = cfg().services.find((s) => s.id === w.sid); const pr = priceOf(svc, w.vid); const v = cfg().vehicles.find((x) => x.id === w.vid);
+  const mineOpen = S.slots.filter((s) => S.mine.includes(s.id) && ACTIVE(s.status) && s.startMs > Date.now()).length;
+  if (mineOpen >= 3) { w.err = 'Je hebt al drie open aanvragen. Neem contact op als je iets wil wijzigen.'; render(); return; }
+  w.sending = true; w.err = ''; render();
+  const id = uid();
+  const b = { id, ref: newRef(), service: svc.name, vehicle: v.name, price: pr[0], minutes: pr[1], startMs: w.ms, endMs: w.ms + pr[1] * 60000, blockMs: w.ms + (pr[1] + cfg().rules.buffer) * 60000, status: 'nieuw', owner: S.me || 'local', createdMs: Date.now(), log: [{ to: 'nieuw', at: Date.now() }] };
+  let phone = w.form.phone.replace(/[^\d+]/g, ''); if (phone.startsWith('00')) phone = '+' + phone.slice(2); else if (phone.startsWith('0')) phone = '+32' + phone.slice(1);
+  const pii = { name: w.form.name.trim(), phone, email: w.form.email.trim().toLowerCase(), plate: w.form.plate.replace(/\s/g, '').toUpperCase(), comment: w.form.comment.trim(), notes: '' };
+  let problem;
+  try { problem = await Store.createBooking(b, pii); } catch (e) { problem = 'busy'; }
+  w.sending = false;
+  if (problem) { w.err = ERR[problem] || ERR.busy; if (['full', 'past', 'blocked', 'hours', 'closed'].includes(problem)) { w.step = 2; w.ms = null; } render(); return; }
+  if (!S.slots.some((s) => s.id === id)) S.slots.push(b);
+  if (!S.mine.includes(id)) S.mine.push(id);
+  S.lastBooking = id; S.wiz = null; go('mijn');
+}
+
+function viewMijn() {
+  const mine = S.slots.filter((s) => S.mine.includes(s.id)).sort((a, b) => b.createdMs - a.createdMs);
+  const text = { nieuw: 'We bekijken je reservatie en bevestigen je afspraak zo snel mogelijk.', in_behandeling: 'We zijn je aanvraag aan het bekijken.', bevestigd: 'Je afspraak is bevestigd. Tot dan!', afgerond: 'Afgerond. Bedankt voor je bezoek!', afgewezen: 'Helaas kunnen we deze aanvraag niet aannemen. Kies gerust een ander moment.', geannuleerd: 'Deze afspraak is geannuleerd.' };
+  const last = mine.find((s) => s.id === S.lastBooking);
+  return `<div class="wrap rise" style="max-width:720px;padding-block:36px">
+    ${last ? `<div style="width:56px;height:56px;border-radius:50%;background:var(--amber);color:var(--amber-ink);display:grid;place-items:center">${icon('check', 'i')}</div>
+      <h1 style="font-size:40px;margin:18px 0 8px">Je aanvraag is ontvangen</h1><p class="muted" style="font-size:17px;margin:0 0 24px">Bedankt voor je aanvraag, ${esc((S.pii[last.id]?.name || '').split(' ')[0])}! We bekijken je reservatie en bevestigen je afspraak zo snel mogelijk.</p>`
+      : `<h1 style="font-size:40px;margin:0 0 20px">Mijn aanvragen</h1>`}
+    ${mine.length ? `<div class="stack">${mine.map((s) => `<div class="card"><div class="kv"><span class="muted">Aanvraagnummer</span><span class="num" style="font-family:ui-monospace,monospace;letter-spacing:.06em">${esc(s.ref)}</span></div>
+      <div class="kv"><span class="muted">Status</span><span><span class="pill st-${s.status}">${STATUS[s.status]}</span></span></div>
+      <div class="kv"><span class="muted">Dienst</span><span>${esc(s.service)} · ${esc(s.vehicle)}</span></div>
+      <div class="kv"><span class="muted">Wanneer</span><span style="text-transform:capitalize">${dLong(s.startMs)}, ${hm(new Date(s.startMs))}</span></div>
+      <div class="kv"><span class="muted">Prijs</span><span class="num">${euro(s.price)}</span></div>
+      <p class="small muted" style="margin:0;padding:12px 18px;border-top:1px solid var(--line)">${text[s.status]}</p></div>`).join('')}</div>
+      <p class="notice small muted" style="margin-top:18px">Een aanvraag is pas vast wanneer de status <b style="color:var(--fg)">Bevestigd</b> is. Deze pagina toont de actuele status.</p>`
+    : `<p class="muted">Je hebt nog geen aanvragen vanaf dit toestel.</p><button class="btn primary" data-go="boeken">Boek je wasbeurt</button>`}
+  </div>`;
+}
+
+/* ------------------------------------------------------------ admin */
+function viewBeheer() {
+  if (!S.admin) return `<div class="wrap" style="padding-block:48px;max-width:560px"><h1 style="font-size:36px">Beheer</h1><p class="muted">Alleen de eigenaar en editors van deze app kunnen aanvragen en instellingen beheren.</p></div>`;
+  const tabs = [['overzicht', 'Overzicht'], ['aanvragen', 'Aanvragen'], ['diensten', 'Diensten & prijzen'], ['planning', 'Planning'], ['acties', 'Acties'], ['instellingen', 'Instellingen']];
+  const newCount = S.slots.filter((s) => s.status === 'nieuw').length;
+  let body = '';
+  if (S.sel) body = adminDetail(); else body = ({ overzicht: adminHome, aanvragen: adminList, diensten: adminServices, planning: adminPlanning, acties: adminPromos, instellingen: adminSettings }[S.adminTab])();
+  return `<div class="wrap" style="padding-block:24px"><div class="row" style="justify-content:space-between"><h1 style="font-size:34px">Beheer</h1><span class="small muted">${S.mode === 'remote' ? 'Gedeelde database' : 'Lokale demo (alleen deze browser)'}</span></div>
+    <nav class="atabs" style="margin-top:12px">${tabs.map(([k, l]) => `<button data-act="a-tab" data-id="${k}" ${S.adminTab === k && !S.sel ? 'aria-current="page"' : ''}>${l}${k === 'aanvragen' && newCount ? ` <span class="pill" style="background:var(--amber);color:var(--amber-ink)">${newCount}</span>` : ''}</button>`).join('')}</nav>
+    ${S.cfgMissing && S.mode === 'remote' ? `<p class="notice" style="margin-bottom:16px">Er zijn nog geen instellingen opgeslagen. <button class="btn sm primary" data-act="a-seed">Voorbeeldgegevens laden</button></p>` : ''}
+    <div class="rise">${body}</div></div>`;
+}
+function bookingRow(s) {
+  const p = S.pii[s.id];
+  return `<li><button class="item" data-act="a-open" data-id="${s.id}"><span class="when"><b class="num">${hm(new Date(s.startMs))}</b><span>${dShort(s.startMs)}</span></span>
+    <span class="grow"><b class="ell" style="display:block">${p && p.name ? esc(p.name) : esc(s.ref)}</b><span class="small muted ell" style="display:block">${esc(s.service)} · ${esc(s.vehicle)}</span></span><span class="pill st-${s.status}">${STATUS[s.status]}</span></button></li>`;
+}
+function adminHome() {
+  const today = ymd(); const d0 = toMs(today, '00:00'), d1 = toMs(addDays(today, 1), '00:00');
+  const t = (f) => S.slots.filter(f).length;
+  const tiles = [['Nieuw', t((s) => s.status === 'nieuw'), 'nieuw', true], ['Vandaag', t((s) => s.startMs >= d0 && s.startMs < d1 && s.status !== 'afgewezen' && s.status !== 'geannuleerd'), 'today'], ['Wacht op bevestiging', t((s) => s.status === 'in_behandeling'), 'in_behandeling'], ['Bevestigd (komend)', t((s) => s.status === 'bevestigd' && s.startMs > Date.now()), 'bevestigd'], ['Geannuleerd / afgewezen', t((s) => s.status === 'geannuleerd' || s.status === 'afgewezen'), 'geannuleerd']];
+  const nw = S.slots.filter((s) => s.status === 'nieuw').sort((a, b) => b.createdMs - a.createdMs).slice(0, 10);
+  const td = S.slots.filter((s) => s.startMs >= d0 && s.startMs < d1 && s.status !== 'afgewezen' && s.status !== 'geannuleerd').sort((a, b) => a.startMs - b.startMs);
+  return `<div class="tiles">${tiles.map(([l, n, f, hot]) => `<button class="card tile ${hot && n ? 'hot' : ''}" data-act="a-filter" data-id="${f}"><b class="num">${n}</b><span class="small muted">${l}</span></button>`).join('')}</div>
+    <h2 style="font-size:20px;margin:30px 0 12px">Nieuwe aanvragen</h2>${nw.length ? `<ul class="card list">${nw.map(bookingRow).join('')}</ul>` : '<p class="card pad muted" style="margin:0">Geen nieuwe aanvragen.</p>'}
+    <h2 style="font-size:20px;margin:30px 0 12px">Agenda vandaag</h2>${td.length ? `<ul class="card list">${td.map(bookingRow).join('')}</ul>` : '<p class="card pad muted" style="margin:0">Vandaag staan er geen afspraken gepland.</p>'}`;
+}
+function adminList() {
+  const f = S.filter; const q = f.q.toLowerCase();
+  let list = S.slots.slice();
+  if (f.status) list = list.filter((s) => s.status === f.status);
+  if (f.date) { const a = toMs(f.date, '00:00'), b = toMs(addDays(f.date, 1), '00:00'); list = list.filter((s) => s.startMs >= a && s.startMs < b); }
+  if (q) list = list.filter((s) => [s.ref, s.service, S.pii[s.id]?.name, S.pii[s.id]?.phone, S.pii[s.id]?.plate].some((x) => (x || '').toLowerCase().includes(q)));
+  list.sort((a, b) => a.startMs - b.startMs);
+  return `<form class="card pad grid" id="a-filterform" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-bottom:16px;align-items:end">
+      <div><label class="lbl" for="flt-status">Status</label><select class="field" id="flt-status" data-flt="status"><option value="">Alle</option>${Object.entries(STATUS).map(([k, l]) => `<option value="${k}" ${f.status === k ? 'selected' : ''}>${l}</option>`).join('')}</select></div>
+      <div><label class="lbl" for="flt-date">Datum</label><input class="field" type="date" id="flt-date" data-flt="date" value="${esc(f.date)}"></div>
+      <div><label class="lbl" for="flt-q">Zoeken</label><input class="field" id="flt-q" data-flt="q" value="${esc(f.q)}" placeholder="Nr., naam, plaat"></div>
+      <button type="button" class="btn" data-act="a-clear">Wis filter</button></form>
+    <p class="small muted">${list.length} aanvragen</p>${list.length ? `<ul class="card list">${list.map(bookingRow).join('')}</ul>` : '<p class="card pad muted" style="margin:0">Geen aanvragen voor deze filter.</p>'}`;
+}
+function adminDetail() {
+  const s = S.slots.find((x) => x.id === S.sel); if (!s) { S.sel = null; return adminList(); }
+  const p = S.pii[s.id];
+  if (p === undefined) { Store.loadPii(s).then(render).catch(() => { S.pii[s.id] = { missing: true }; render(); }); }
+  const first = (p?.name || '').split(' ')[0];
+  const when = dLong(s.startMs) + ' om ' + hm(new Date(s.startMs));
+  const msgs = [['Bevestiging sturen', `Hallo ${first}, je afspraak bij ${cfg().business.name} op ${when} (${s.service}) is bevestigd. Referentie ${s.ref}. Tot dan!`], ['Ander tijdstip voorstellen', `Hallo ${first}, bedankt voor je aanvraag ${s.ref}. Op ${when} lukt het helaas niet. Past [dag + uur] voor jou?`]];
+  const c = S.confirming;
+  return `<button class="btn sm" data-act="a-close">${icon('left')} Terug</button>
+    <div class="row" style="margin:18px 0"><h2 style="font-size:30px">${esc(p?.name || s.ref)}</h2><span class="pill st-${s.status}">${STATUS[s.status]}</span><span class="small muted" style="font-family:ui-monospace,monospace">${esc(s.ref)}</span></div>
+    <div class="grid g2" style="align-items:start"><div class="stack" style="gap:16px">
+      <div class="card">${[['Dienst', s.service], ['Wagen', s.vehicle], ['Datum', dLong(s.startMs)], ['Uur', hm(new Date(s.startMs)) + ' – ' + hm(new Date(s.endMs)) + ' (' + dur(s.minutes) + ')'], ['Prijs', euro(s.price)], ['Aangevraagd', dt(s.createdMs)]].map(([k, v]) => `<div class="kv"><span class="muted">${k}</span><span style="text-transform:${k === 'Datum' ? 'capitalize' : 'none'}">${esc(v)}</span></div>`).join('')}
+        ${p?.comment ? `<p style="margin:0;padding:12px 18px;border-top:1px solid var(--line)"><span class="small muted" style="display:block">Opmerking klant</span>${esc(p.comment)}</p>` : ''}</div>
+      ${NEXT[s.status].length ? `<div class="card pad"><h3 style="font-size:18px;margin-bottom:12px">Status wijzigen</h3><div class="row">${NEXT[s.status].map((n) => c && c.to === n ? `<span class="confirm-box"><span class="small">Zeker?</span><button class="btn sm danger" data-act="a-status" data-id="${n}" data-sure="1">Ja, ${ACTION[n].toLowerCase()}</button><button class="btn sm" data-act="a-nostatus">Nee</button></span>` : `<button class="btn sm ${n === 'bevestigd' || n === 'afgerond' ? 'primary' : n === 'afgewezen' || n === 'geannuleerd' ? 'danger' : ''}" data-act="a-status" data-id="${n}">${ACTION[n]}</button>`).join('')}</div></div>` : ''}
+      ${ACTIVE(s.status) ? `<form class="card pad" id="a-resched"><h3 style="font-size:18px;margin-bottom:4px">Verplaatsen</h3><p class="small muted" style="margin:0 0 12px">Na afspraak met de klant. Uren, blokkeringen en capaciteit worden gecontroleerd.</p>
+        <div class="row" style="align-items:end"><div><label class="lbl" for="rs-date">Datum</label><input class="field" type="date" id="rs-date" required value="${ymd(new Date(s.startMs))}"></div><div><label class="lbl" for="rs-time">Uur</label><input class="field" type="time" id="rs-time" step="300" required value="${hm(new Date(s.startMs))}"></div><button class="btn">Verplaats</button></div></form>` : ''}
+    </div><div class="stack" style="gap:16px">
+      <div class="card pad"><h3 style="font-size:18px;margin-bottom:12px">Klant</h3>${p === undefined ? '<p class="muted small">Laden…</p>' : p?.missing ? '<p class="muted small">Contactgegevens niet beschikbaar.</p>' : `
+        <div class="stack small" style="gap:6px"><div class="row"><span class="muted" style="width:96px">Telefoon</span><b style="user-select:all">${esc(p.phone)}</b></div><div class="row"><span class="muted" style="width:96px">E-mail</span><span>${esc(p.email || '—')}</span></div><div class="row"><span class="muted" style="width:96px">Nummerplaat</span><span>${esc(p.plate || '—')}</span></div></div>
+        <p class="small muted" style="margin:16px 0 8px">WhatsApp-bericht klaarzetten</p><div class="stack" style="gap:8px">${msgs.map(([l, t]) => `<a class="btn sm" style="justify-content:flex-start" href="${waUrl(p.phone, t)}" target="_blank" rel="noopener">${l}</a>`).join('')}</div>`}</div>
+      ${p && !p.missing ? `<form class="card pad" id="a-notes"><h3 style="font-size:18px;margin-bottom:10px">Interne notitie</h3><textarea class="field" id="a-notes-txt" rows="3" maxlength="2000">${esc(p.notes || '')}</textarea><button class="btn sm" style="margin-top:10px">Notitie opslaan</button></form>` : ''}
+      <div class="card pad"><h3 style="font-size:18px;margin-bottom:10px">Geschiedenis</h3><ul class="stack small" style="list-style:none;margin:0;padding:0;gap:8px">${(s.log || []).slice().reverse().map((l) => `<li class="row" style="justify-content:space-between"><span>${l.from ? STATUS[l.from] + ' → ' : ''}<b>${STATUS[l.to] || ''}</b>${l.note ? ' <span class="muted">' + esc(l.note) + '</span>' : ''}</span><span class="muted num">${dt(l.at)}</span></li>`).join('')}</ul></div>
+    </div></div>`;
+}
+function adminServices() {
+  const c = cfg();
+  return `<p class="small muted" style="margin-top:0">Prijs in euro en duur in minuten per type wagen. Laat beide leeg als je die dienst niet aanbiedt voor dat type. Verborgen diensten blijven in oude aanvragen staan.</p>
+  <form id="a-services" class="stack" style="gap:14px">${c.services.map((s, i) => `<fieldset class="card pad" style="margin:0"><legend class="sr" style="position:absolute;left:-9999px">${esc(s.name)}</legend>
+    <div class="grid g2"><div><label class="lbl" for="sv-name-${i}">Naam</label><input class="field" id="sv-name-${i}" data-sv="${i}" data-k="name" value="${esc(s.name)}" required></div>
+    <div><label class="lbl" for="sv-cat-${i}">Categorie</label><select class="field" id="sv-cat-${i}" data-sv="${i}" data-k="category">${[...new Set([...CATS, s.category])].map((x) => `<option ${x === s.category ? 'selected' : ''}>${esc(x)}</option>`).join('')}</select></div></div>
+    <div style="margin-top:12px"><label class="lbl" for="sv-desc-${i}">Beschrijving</label><textarea class="field" id="sv-desc-${i}" data-sv="${i}" data-k="description" rows="2">${esc(s.description)}</textarea></div>
+    <div class="tbl-wrap" style="margin-top:12px"><table class="tbl"><thead><tr><th>Type wagen</th><th>Prijs (€)</th><th>Duur (min)</th></tr></thead><tbody>${c.vehicles.map((v) => `<tr><td>${esc(v.name)}</td><td><input class="field num" id="sv-p-${i}-${v.id}" data-sv="${i}" data-price="${v.id}" inputmode="decimal" value="${s.prices[v.id] ? String(s.prices[v.id][0] / 100).replace('.', ',') : ''}"></td><td><input class="field num" id="sv-d-${i}-${v.id}" data-sv="${i}" data-dur="${v.id}" type="number" min="5" max="600" step="5" value="${s.prices[v.id] ? s.prices[v.id][1] : ''}"></td></tr>`).join('')}</tbody></table></div>
+    <div class="row" style="margin-top:12px;gap:20px"><label class="switch"><input type="checkbox" id="sv-act-${i}" data-sv="${i}" data-k="active" ${s.active ? 'checked' : ''}> Zichtbaar en boekbaar</label><label class="switch"><input type="checkbox" id="sv-pop-${i}" data-sv="${i}" data-k="popular" ${s.popular ? 'checked' : ''}> Populair (homepagina)</label></div></fieldset>`).join('')}
+  <div class="row"><button class="btn primary">Diensten opslaan</button><button type="button" class="btn" data-act="a-addsvc">Dienst toevoegen</button></div></form>`;
+}
+function adminPlanning() {
+  const c = cfg(); const R = c.rules;
+  return `<div class="grid g2" style="align-items:start"><form class="card pad" id="a-hours"><h3 style="font-size:18px;margin-bottom:14px">Openingsuren</h3><div class="stack" style="gap:10px">${[1, 2, 3, 4, 5, 6, 7].map((d) => { const h = c.hours[d] || [false, '09:00', '18:00']; return `<div class="row" style="flex-wrap:nowrap;gap:10px"><label class="switch" style="width:120px"><input type="checkbox" id="h-open-${d}" ${h[0] ? 'checked' : ''}> ${WEEKDAYS[d - 1]}</label><input class="field" type="time" step="300" id="h-from-${d}" value="${h[1]}" aria-label="${WEEKDAYS[d - 1]} open"><input class="field" type="time" step="300" id="h-to-${d}" value="${h[2]}" aria-label="${WEEKDAYS[d - 1]} sluit"></div>`; }).join('')}</div><button class="btn primary" style="margin-top:16px">Uren opslaan</button></form>
+    <form class="card pad" id="a-rules"><h3 style="font-size:18px;margin-bottom:14px">Boekingsregels</h3><div class="grid g2">${[['slot', 'Tijdslot (min)', 5, 240], ['buffer', 'Buffer na elke wagen (min)', 0, 120], ['capacity', 'Wagens tegelijk', 1, 20], ['lead', 'Min. vooraf boeken (min)', 0, 10080], ['maxDays', 'Max. dagen vooruit', 1, 365]].map(([k, l, mn, mx]) => `<div><label class="lbl" for="r-${k}">${l}</label><input class="field num" type="number" id="r-${k}" min="${mn}" max="${mx}" required value="${R[k]}"></div>`).join('')}</div><button class="btn primary" style="margin-top:16px">Regels opslaan</button></form></div>
+    <form class="card pad" id="a-block" style="margin-top:16px"><h3 style="font-size:18px;margin-bottom:4px">Sluitingsdagen en blokkeringen</h3><p class="small muted" style="margin:0 0 14px">Feestdagen, verlof, onderhoud. Klanten kunnen in die periode niet boeken.</p>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr));align-items:end"><div><label class="lbl" for="b-from">Van</label><input class="field" type="date" id="b-from" required min="${ymd()}"></div><div><label class="lbl" for="b-until">Tot en met</label><input class="field" type="date" id="b-until" min="${ymd()}"></div><div><label class="lbl" for="b-t1">Uur van (leeg = hele dag)</label><input class="field" type="time" id="b-t1" step="300"></div><div><label class="lbl" for="b-t2">Uur tot</label><input class="field" type="time" id="b-t2" step="300"></div><div><label class="lbl" for="b-reason">Reden</label><input class="field" id="b-reason" maxlength="80" placeholder="Bv. Kerstmis"></div><button class="btn primary">Blokkeren</button></div>
+      <ul class="list" style="margin-top:16px;border-top:1px solid var(--line)">${(c.blocks || []).filter((b) => b.end > Date.now()).sort((a, b) => a.start - b.start).map((b) => `<li class="row" style="justify-content:space-between;padding:10px 0"><span class="small"><b class="num">${dt(b.start)} → ${dt(b.end)}</b> <span class="muted">${esc(b.reason || '')}</span></span><button type="button" class="btn sm" data-act="a-unblock" data-id="${b.id}">Verwijderen</button></li>`).join('') || '<li class="small muted" style="padding:10px 0">Geen komende blokkeringen.</li>'}</ul></form>`;
+}
+function adminPromos() {
+  const c = cfg(); const ps = c.promos || [];
+  const form = (p, i) => `<form class="card pad" data-promo="${i}" style="margin:0"><div class="grid g2">
+    <div><label class="lbl" for="pr-title-${i}">Titel</label><input class="field" id="pr-title-${i}" required maxlength="80" value="${esc(p.title)}"></div>
+    <div><label class="lbl" for="pr-label-${i}">Label (bv. −20%)</label><input class="field" id="pr-label-${i}" maxlength="30" value="${esc(p.label)}"></div>
+    <div style="grid-column:1/-1"><label class="lbl" for="pr-desc-${i}">Beschrijving</label><textarea class="field" id="pr-desc-${i}" rows="2" maxlength="400">${esc(p.description)}</textarea></div>
+    <div><label class="lbl" for="pr-from-${i}">Van (leeg = nu)</label><input class="field" type="date" id="pr-from-${i}" value="${esc(p.from)}"></div>
+    <div><label class="lbl" for="pr-until-${i}">Tot en met (leeg = doorlopend)</label><input class="field" type="date" id="pr-until-${i}" value="${esc(p.until)}"></div>
+    <div><label class="lbl" for="pr-code-${i}">Promocode (optioneel)</label><input class="field" id="pr-code-${i}" maxlength="20" pattern="[A-Za-z0-9-]{3,20}" style="text-transform:uppercase" value="${esc(p.code)}"></div>
+    <div class="row" style="gap:18px;align-self:end"><label class="switch"><input type="checkbox" id="pr-act-${i}" ${p.active ? 'checked' : ''}> Actief</label><label class="switch"><input type="checkbox" id="pr-home-${i}" ${p.home ? 'checked' : ''}> Op homepagina</label></div></div>
+    <div class="row" style="margin-top:14px"><button class="btn primary sm">${i < 0 ? 'Actie aanmaken' : 'Opslaan'}</button>${i >= 0 ? `<button type="button" class="btn sm danger" data-act="a-delpromo" data-id="${i}">Verwijderen</button>` : ''}</div></form>`;
+  return `<p class="small muted" style="margin-top:0">De promocode wordt getoond en met de aanvraag meegestuurd; de korting pas je ter plaatse toe.</p><div class="stack" style="gap:14px"><h3 style="font-size:18px">Nieuwe actie</h3>${form({ title: '', label: '', description: '', from: '', until: '', code: '', active: true, home: true }, -1)}${ps.length ? '<h3 style="font-size:18px;margin-top:10px">Bestaande acties</h3>' : ''}${ps.map(form).join('')}</div>`;
+}
+function adminSettings() {
+  const b = cfg().business;
+  const f = (k, l, t = 'text', ph = '') => `<div><label class="lbl" for="st-${k}">${l}</label><input class="field" id="st-${k}" type="${t}" placeholder="${ph}" value="${esc(b[k])}"></div>`;
+  return `<form class="card pad" id="a-settings"><div class="grid g2">${f('name', 'Bedrijfsnaam')}${f('tagline', 'Slogan (homepagina)')}${f('address', 'Straat en nummer')}<div class="grid" style="grid-template-columns:100px 1fr;gap:10px">${f('postal', 'Postcode')}${f('city', 'Gemeente')}</div>${f('phone', 'Telefoon', 'tel', '09 123 45 67')}${f('whatsapp', 'WhatsApp', 'tel', '0470 12 34 56')}${f('email', 'E-mail', 'email')}${f('instagram', 'Instagram (https://…)', 'url')}</div>
+    <label class="switch" style="margin-top:18px"><input type="checkbox" id="st-demo" ${b.demo ? 'checked' : ''}> Demomodus (banner "Demoversie" bovenaan)</label>
+    <div class="row" style="margin-top:18px"><button class="btn primary">Instellingen opslaan</button></div></form>
+    ${S.mode === 'local' ? `<div class="card pad" style="margin-top:16px"><h3 style="font-size:18px;margin-bottom:6px">Lokale demo</h3><p class="small muted" style="margin:0 0 12px">Alles wat je hier doet, wordt alleen in deze browser bewaard.</p>${S.confirming?.reset ? `<span class="confirm-box"><span class="small">Alles wissen?</span><button class="btn sm danger" data-act="a-reset" data-sure="1">Ja, wissen</button><button class="btn sm" data-act="a-nostatus">Nee</button></span>` : `<button class="btn sm danger" data-act="a-reset">Demo opnieuw beginnen</button>`}</div>` : ''}`;
+}
+
+/* ------------------------------------------------------------ shell */
+function render() {
+  const app = document.getElementById('app');
+  if (S.mode === 'loading' || !S.cfg) { app.innerHTML = `<div class="wrap" style="padding-block:80px"><p class="muted">Laden…</p></div>`; return; }
+  // keep focus and caret across re-renders of form fields
+  const ae = document.activeElement; const fid = ae && ae.id; const sel = fid && ae.selectionStart != null ? [ae.selectionStart, ae.selectionEnd] : null;
+  const b = cfg().business; const r = S.route;
+  const view = { home: viewHome, diensten: viewDiensten, boeken: viewBoeken, contact: viewContact, acties: viewActies, mijn: viewMijn, beheer: viewBeheer, privacy: viewPrivacy }[r]();
+  const tabs = [['home', 'Home', 'home'], ['diensten', 'Diensten', 'drop'], ['boeken', 'Boeken', 'cal'], ['contact', 'Contact', 'pin']];
+  app.innerHTML = `
+    ${b.demo ? `<div class="banner"><div class="wrap"><span>Demoversie · concept door FastCode</span><span>prijzen, uren en acties zijn voorbeelden</span></div></div>` : ''}
+    ${S.mode === 'local' ? `<div style="background:var(--raised);border-bottom:1px solid var(--line)"><div class="wrap small muted" style="padding-block:6px;text-align:center">Lokale modus: aanvragen worden alleen in deze browser bewaard.</div></div>` : ''}
+    ${S.stale ? `<div style="background:var(--raised)"><div class="wrap small" style="padding-block:6px;text-align:center">De database antwoordt nog niet; gegevens kunnen verouderd zijn.</div></div>` : ''}
+    <header class="top"><div class="wrap"><a class="brand" href="#home"><span class="mark">B</span><b>${esc(b.name)}</b></a>
+      <nav class="desk" aria-label="Hoofdmenu"><a href="#diensten" ${r === 'diensten' ? 'aria-current="page"' : ''}>Diensten</a><a href="#acties" ${r === 'acties' ? 'aria-current="page"' : ''}>Acties</a><a href="#contact" ${r === 'contact' ? 'aria-current="page"' : ''}>Contact</a>${S.mine.length ? `<a href="#mijn" ${r === 'mijn' ? 'aria-current="page"' : ''}>Mijn aanvragen</a>` : ''}${S.admin && S.mode === 'remote' ? `<a href="#beheer" ${r === 'beheer' ? 'aria-current="page"' : ''}>Beheer</a>` : ''}<a class="btn primary sm" href="#boeken">Boek je wasbeurt</a></nav>
+      <div class="row" style="gap:8px" data-mobile>${S.mine.length ? `<a class="chip" href="#mijn">Mijn aanvragen</a>` : ''}<span id="install-slot"></span>${S.admin && S.mode === 'remote' ? `<a class="chip" href="#beheer">Beheer</a>` : ''}</div></div></header>
+    <main>${view}</main>
+    ${r !== 'boeken' ? `<footer class="foot"><div class="wrap"><span>© ${new Date().getFullYear()} ${esc(b.name)}${b.demo ? ' · demo-concept, geen officieel product' : ''}</span><span class="row" style="gap:18px"><a href="#acties">Acties</a><a href="#privacy">Privacybeleid</a><a href="#beheer">Beheer</a></span></div></footer>
+    <nav class="tabs" aria-label="Hoofdmenu"><ul>${tabs.map(([k, l, i]) => `<li><a href="#${k}" ${r === k ? 'aria-current="page"' : ''}>${icon(i, '')}${l}</a></li>`).join('')}</ul></nav>` : ''}
+    ${S.toast ? `<div class="toast" role="status">${esc(S.toast)}</div>` : ''}`;
+  document.querySelectorAll('[data-mobile]').forEach((el) => { el.style.display = matchMedia('(min-width: 820px)').matches ? 'none' : 'flex'; });
+  if (fid) { const el = document.getElementById(fid); if (el && el !== document.activeElement) { el.focus({ preventScroll: true }); if (sel && el.setSelectionRange) try { el.setSelectionRange(sel[0], sel[1]); } catch {} } }
+}
+
+/* ------------------------------------------------------------ events */
+const val = (id) => (document.getElementById(id)?.value ?? '').trim();
+const chk = (id) => !!document.getElementById(id)?.checked;
+const clone = () => JSON.parse(JSON.stringify(cfg()));
+async function saveCfg(next, msg) { try { await Store.saveConfig(next); toast(msg); } catch (e) { toast('Opslaan mislukt. Probeer opnieuw.'); } }
+
+document.addEventListener('click', async (e) => {
+  const g = e.target.closest('[data-go]'); if (g) { e.preventDefault(); go(g.dataset.go); return; }
+  const a = e.target.closest('[data-act]'); if (!a) return;
+  const act = a.dataset.act, id = a.dataset.id; const w = S.wiz;
+  switch (act) {
+    case 'book': startWizard(id); go('boeken'); break;
+    case 'book-promo': { const p = (cfg().promos || []).find((x) => x.id === id); startWizard(null, p ? 'Actie: ' + p.title + (p.code ? ' (code ' + p.code + ')' : '') : ''); go('boeken'); break; }
+    case 'w-veh': w.vid = id; const sv = cfg().services.find((s) => s.id === w.sid); if (sv && !priceOf(sv, id)) w.sid = null; w.ms = null; render(); break;
+    case 'w-svc': w.sid = id; w.ms = null; w.date = null; render(); break;
+    case 'w-day': w.date = id; w.ms = null; render(); break;
+    case 'w-time': w.ms = +id; w.label = a.dataset.label; render(); break;
+    case 'w-back': w.step--; w.err = ''; render(); window.scrollTo({ top: 0 }); break;
+    case 'w-next': if (wizValid()) { w.step++; w.err = ''; render(); window.scrollTo({ top: 0 }); } break;
+    case 'w-send': sendBooking(); break;
+    case 'a-tab': S.adminTab = id; S.sel = null; S.confirming = null; render(); break;
+    case 'a-filter': S.adminTab = 'aanvragen'; S.filter = { status: id === 'today' ? '' : id, date: id === 'today' ? ymd() : '', q: '' }; render(); break;
+    case 'a-clear': S.filter = { status: '', date: '', q: '' }; render(); break;
+    case 'a-open': S.sel = id; S.confirming = null; render(); window.scrollTo({ top: 0 }); break;
+    case 'a-close': S.sel = null; S.confirming = null; render(); break;
+    case 'a-nostatus': S.confirming = null; render(); break;
+    case 'a-status': {
+      if ((id === 'afgewezen' || id === 'geannuleerd') && !a.dataset.sure) { S.confirming = { to: id }; render(); break; }
+      const s = S.slots.find((x) => x.id === S.sel); if (!NEXT[s.status].includes(id)) break;
+      S.confirming = null;
+      try { await Store.updateSlot(s.id, { status: id, log: [...(s.log || []), { from: s.status, to: id, at: Date.now() }] }); toast('Status: ' + STATUS[id]); } catch { toast('Wijzigen mislukt.'); }
+      render(); break;
+    }
+    case 'a-unblock': { const n = clone(); n.blocks = (n.blocks || []).filter((b) => b.id !== id); saveCfg(n, 'Blokkering verwijderd'); break; }
+    case 'a-delpromo': { const n = clone(); n.promos.splice(+id, 1); saveCfg(n, 'Actie verwijderd'); break; }
+    case 'a-addsvc': { const n = clone(); n.services.push({ id: uid(), name: 'Nieuwe dienst', category: 'Extra diensten', description: '', popular: false, active: false, prices: {} }); saveCfg(n, 'Dienst toegevoegd: vul prijzen in en zet hem zichtbaar'); break; }
+    case 'a-seed': saveCfg(JSON.parse(JSON.stringify(DEFAULT_CONFIG)), 'Voorbeeldgegevens geladen'); break;
+    case 'a-reset': if (!a.dataset.sure) { S.confirming = { reset: true }; render(); break; } S.confirming = null; S.cfg = JSON.parse(JSON.stringify(DEFAULT_CONFIG)); S.slots = []; S.pii = {}; S.mine = []; saveLocal(); toast('Demo opnieuw begonnen'); break;
+  }
+});
+
+document.addEventListener('input', (e) => {
+  const t = e.target;
+  if (t.dataset.f && S.wiz) { S.wiz.form[t.dataset.f] = t.type === 'checkbox' ? t.checked : t.value; const n = document.getElementById('w-next'); if (n) n.disabled = !wizValid(); }
+  if (t.dataset.flt) { S.filter[t.dataset.flt] = t.value; render(); }
+});
+document.addEventListener('change', (e) => { const t = e.target; if (t.dataset.f === 'privacy' && S.wiz) { S.wiz.form.privacy = t.checked; const n = document.getElementById('w-next'); if (n) n.disabled = !wizValid(); } });
+
+document.addEventListener('submit', async (e) => {
+  e.preventDefault(); const f = e.target; const id = f.id;
+  if (id === 'wform') { if (wizValid()) { S.wiz.step = 4; render(); } return; }
+  if (id === 'a-notes') { const s = S.slots.find((x) => x.id === S.sel); try { await Store.savePii(s, { notes: val('a-notes-txt').slice(0, 2000) }); toast('Notitie opgeslagen'); } catch { toast('Opslaan mislukt.'); } return; }
+  if (id === 'a-resched') {
+    const s = S.slots.find((x) => x.id === S.sel); const ms = toMs(val('rs-date'), val('rs-time'));
+    if (ms < Date.now()) { toast('Kies een tijdstip in de toekomst.'); return; }
+    const p = slotProblem(cfg(), S.slots, ms, s.minutes, s.id, false); if (p) { toast(ERR[p]); return; }
+    try { await Store.updateSlot(s.id, { startMs: ms, endMs: ms + s.minutes * 60000, blockMs: ms + (s.minutes + cfg().rules.buffer) * 60000, log: [...(s.log || []), { from: s.status, to: s.status, at: Date.now(), note: 'verplaatst van ' + dt(s.startMs) }] }); toast('Afspraak verplaatst. Laat het de klant weten.'); } catch { toast('Verplaatsen mislukt.'); }
+    render(); return;
+  }
+  if (id === 'a-services') {
+    const n = clone(); let bad = '';
+    n.services.forEach((s, i) => {
+      s.name = val('sv-name-' + i) || s.name; s.category = val('sv-cat-' + i); s.description = val('sv-desc-' + i); s.active = chk('sv-act-' + i); s.popular = chk('sv-pop-' + i);
+      const prices = {};
+      n.vehicles.forEach((v) => { const pr = val(`sv-p-${i}-${v.id}`).replace(',', '.'); const du = val(`sv-d-${i}-${v.id}`); if (!pr && !du) return; const c = Math.round(+pr * 100), d = parseInt(du, 10); if (!(c >= 0) || !(d >= 5 && d <= 600) || !pr) { bad = s.name; return; } prices[v.id] = [c, d]; });
+      s.prices = prices; if (s.active && !Object.keys(prices).length) bad = s.name;
+    });
+    if (bad) { toast('Controleer prijs en duur bij "' + bad + '"'); return; }
+    saveCfg(n, 'Diensten opgeslagen'); return;
+  }
+  if (id === 'a-hours') {
+    const n = clone(); for (let d = 1; d <= 7; d++) { const fr = val('h-from-' + d), to = val('h-to-' + d); if (chk('h-open-' + d) && minOf(to) <= minOf(fr)) { toast(WEEKDAYS[d - 1] + ': sluitingsuur moet na openingsuur liggen'); return; } n.hours[d] = [chk('h-open-' + d), fr, to]; }
+    saveCfg(n, 'Openingsuren opgeslagen'); return;
+  }
+  if (id === 'a-rules') { const n = clone(); for (const k of ['slot', 'buffer', 'capacity', 'lead', 'maxDays']) n.rules[k] = parseInt(val('r-' + k), 10); saveCfg(n, 'Regels opgeslagen'); return; }
+  if (id === 'a-block') {
+    const from = val('b-from'), until = val('b-until') || from, t1 = val('b-t1'), t2 = val('b-t2');
+    if (!from || until < from) { toast('Kies een geldige periode.'); return; }
+    const start = toMs(from, t1 || '00:00'); const end = t1 && t2 ? toMs(until, t2) : toMs(addDays(until, 1), '00:00');
+    if (end <= start) { toast('Het einde moet na het begin liggen.'); return; }
+    const n = clone(); n.blocks = [...(n.blocks || []), { id: uid(), start, end, reason: val('b-reason') }];
+    saveCfg(n, 'Periode geblokkeerd'); return;
+  }
+  if (f.dataset.promo != null) {
+    const i = +f.dataset.promo; const code = val('pr-code-' + i).toUpperCase();
+    const p = { id: i < 0 ? uid() : cfg().promos[i].id, title: val('pr-title-' + i), label: val('pr-label-' + i), description: val('pr-desc-' + i), from: val('pr-from-' + i), until: val('pr-until-' + i), code, active: chk('pr-act-' + i), home: chk('pr-home-' + i) };
+    if (p.until && p.from && p.until < p.from) { toast('De einddatum ligt voor de startdatum.'); return; }
+    const n = clone(); n.promos = n.promos || []; if (i < 0) n.promos.unshift(p); else n.promos[i] = p;
+    saveCfg(n, i < 0 ? 'Actie aangemaakt' : 'Actie opgeslagen'); return;
+  }
+  if (id === 'a-settings') {
+    const n = clone(); for (const k of ['name', 'tagline', 'address', 'postal', 'city', 'phone', 'whatsapp', 'email']) n.business[k] = val('st-' + k);
+    const ig = val('st-instagram'); n.business.instagram = /^https:\/\//.test(ig) ? ig : ''; n.business.demo = chk('st-demo');
+    if (!n.business.name) { toast('Vul de bedrijfsnaam in.'); return; }
+    saveCfg(n, 'Instellingen opgeslagen'); return;
+  }
+});
+window.addEventListener('resize', () => document.querySelectorAll('[data-mobile]').forEach((el) => { el.style.display = matchMedia('(min-width: 820px)').matches ? 'none' : 'flex'; }));
+
+readRoute();
+render();
+boot();
+})();
+</script>
+
+<script>
+/* PWA: service worker + install prompt (works when hosted over HTTPS) */
+(() => {
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+  let deferred = null;
+  const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent) && !/crios|fxios/i.test(navigator.userAgent);
+  function paint() {
+    const slot = document.getElementById('install-slot');
+    if (!slot || standalone) return;
+    if (deferred) slot.innerHTML = '<button class="chip" id="install-btn" style="background:var(--amber);color:var(--amber-ink);border-color:var(--amber);font-weight:700;cursor:pointer">Installeer app</button>';
+    else if (isIos && !sessionStorage.getItem('ios-hint-closed')) slot.innerHTML = '<button class="chip" id="ios-hint" style="cursor:pointer">App installeren?</button>';
+    else slot.innerHTML = '';
+  }
+  addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferred = e; paint(); });
+  addEventListener('appinstalled', () => { deferred = null; paint(); });
+  document.addEventListener('click', async (e) => {
+    if (e.target.id === 'install-btn' && deferred) { deferred.prompt(); await deferred.userChoice; deferred = null; paint(); }
+    if (e.target.id === 'ios-hint') { e.target.outerHTML = '<span class="small muted">Tik op <b style="color:var(--fg)">Deel</b> &rarr; <b style="color:var(--fg)">Zet op beginscherm</b></span>'; try { sessionStorage.setItem('ios-hint-closed', '1'); } catch {} }
+  });
+  new MutationObserver(() => { const s = document.getElementById('install-slot'); if (s && !s.innerHTML) paint(); }).observe(document.getElementById('app'), { childList: true });
+})();
+</script>
+</body>
+</html>

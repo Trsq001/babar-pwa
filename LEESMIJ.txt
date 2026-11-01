@@ -1,0 +1,16 @@
+Babar Handcarwash — installeerbare PWA (demo-concept FastCode)
+
+Online zetten (gratis, HTTPS is vereist voor installatie):
+- Netlify: app.netlify.com/drop -> sleep deze map erin.
+- GitHub Pages, Cloudflare Pages of Vercel werken ook: upload de bestanden van deze map.
+
+Daarna op de telefoon de link openen:
+- Android/Chrome: knop "Installeer app" bovenaan, of menu -> App installeren.
+- iPhone/Safari: Deel -> Zet op beginscherm.
+
+Belangrijk: deze versie heeft geen server. Aanvragen, diensten en instellingen worden
+bewaard in de browser van het toestel waarop ze ingevuld zijn. Klanten-aanvragen komen
+dus NIET bij de eigenaar terecht. Voor echte aanvragen: de Next.js + Supabase-versie.
+
+Beheer: onderaan de pagina -> "Beheer".
+Bij een update: verhoog VERSION in sw.js zodat telefoons de nieuwe versie ophalen.
